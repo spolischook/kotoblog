@@ -1,2 +1,6 @@
 vendor/
 app/config/db.php
+app/cache/
+web/css/
+web/js/
+web/fonts/
