@@ -3,9 +3,13 @@
         "silex/silex": "1.2.*@dev",
         "doctrine/dbal": "2.5.*@dev",
         "twig/twig": "1.15.*@dev",
-        "symfony/form": "2.3.*@dev",
+        "twbs/bootstrap": "dev-master",
+        "symfony/form": "2.4.*@dev",
         "symfony/twig-bridge": "2.5.*@dev",
         "symfony/validator": "2.3.*@dev"
+    },
+    "require-dev": {
+        "symfony/filesystem": "2.5.*@dev"
     },
     "autoload": {
         "psr-0": {"Kotoblog": "src/"}
