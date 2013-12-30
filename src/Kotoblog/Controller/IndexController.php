@@ -10,6 +10,6 @@ class IndexController
 {
     public function indexAction(Request $request, Application $app)
     {
-        return new Response('My first action');
+        return $app['twig']->render('layout.html.twig');
     }
 }
