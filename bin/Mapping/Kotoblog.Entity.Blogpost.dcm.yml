@@ -1,0 +1,23 @@
+Kotoblog\Entity\Blogpost:
+    type: entity
+    table: blogposts
+    indexes:
+        id_index:
+            columns: [ id ]
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+        slug:
+            type: string
+        text:
+            type: text
+        publish:
+            type: boolean
+        createdAt:
+            type: datetime
+            column: created_at
