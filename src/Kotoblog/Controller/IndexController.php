@@ -11,5 +11,9 @@ class IndexController
     public function indexAction(Request $request, Application $app)
     {
         return $app['twig']->render('layout.html.twig');
+
+    public function aboutMeAction(Request $request, Application $app)
+    {
+        return $app['twig']->render('about-me.html.twig');
     }
 }
