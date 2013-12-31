@@ -2,7 +2,7 @@
 
 require __DIR__ . '/config.php';
 
-$app['db.options'] = $dbConfig;
+$app['db.options'] = $config['db'];
 
 // Cache
 $app['cache.path'] = __DIR__ . '/../cache';
