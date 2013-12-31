@@ -1,5 +1,5 @@
 vendor/
-app/config/db.php
+app/config/config.php
 app/cache/
 web/css/
 web/js/

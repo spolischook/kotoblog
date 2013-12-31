@@ -1,6 +1,8 @@
 <?php
 
-require __DIR__ . '/db.php';
+require __DIR__ . '/config.php';
+
+$app['db.options'] = $dbConfig;
 
 // Cache
 $app['cache.path'] = __DIR__ . '/../cache';
