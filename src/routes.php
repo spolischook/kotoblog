@@ -5,3 +5,7 @@ $app->get('/', 'Kotoblog\Controller\IndexController::indexAction')
 $app->get('/about-me', 'Kotoblog\Controller\IndexController::aboutMeAction')
     ->bind('aboutMe');
 
+$app->match('/login', 'Kotoblog\Controller\UserController::loginAction')
+    ->bind('login');
+$app->get('/logout', 'Kotoblog\Controller\UserController::logoutAction')
+    ->bind('logout');
