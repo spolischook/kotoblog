@@ -3,8 +3,11 @@
 <head>
     <title>Kotoblog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
+    <meta name="author" content="Sergey Polischuk">
+    {% block styles %}
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
+    {% endblock %}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -15,51 +18,53 @@
 </head>
 <body>
 <div class="container">
-    <div class="headerphoto">
-        <img src="/img/header_3.jpg" class="img-responsive" width="1000" height="350" />
-    </div>
-    {{ include('navbar.html.twig') }}
-    {% block content %}
-        <div class="row">
-            <div class="col-md-8 col-sm-12 col-xs-12">
-                {% block maincolumn %}
-                    <h2>Hello, world!!!</h2>
-                {% endblock maincolumn %}
-            </div>
-            <div class="col-md-4 hidden-xs hidden-sm">
-                {% block sidebar %}
-                    <h6>
-                        <span class="glyphicon glyphicon-fire"></span>
-                        <a href="http://feeds.feedburner.com/kotoblog" target="_blank"> Подпишись на RSS</a>
-                        и получай обновления блога!
-                    </h6>
-                    <h6><span class="glyphicon glyphicon-send"></span> Получать обновления по электронной почте:</h6>
-                    <form>
-                        <div class="input-group">
-                            <span class="input-group-addon">@</span>
-                            <input type="text" class="form-control" placeholder="E-mail">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="submit">OK</button>
-                            </span>
-                        </div>
-                    </form>
-                    <h6><span class="glyphicon glyphicon-bullhorn"></span> Новое на блоге</h6>
-                    <h6><span class="glyphicon glyphicon-star"></span> Еще популярные статьи</h6>
-                    <h6><span class="glyphicon glyphicon-tags"></span> Теги</h6>
-                    <h6><span class="glyphicon glyphicon-share"></span> Ссылки</h6>
-                {% endblock sidebar %}
-            </div>
+    {% block container %}
+        <div class="headerphoto">
+            <img src="/img/header_3.jpg" class="img-responsive" width="1000" height="350" />
         </div>
-    {% endblock content %}
-    {% block footer %}
-        <div class="row">
-            <div class="col-md-9"><h6>© 2008 Котоблог</h6></div>
-            <div class="col-md-3">
-                <h6>Работает на <a target="_blank" href="http://silex.sensiolabs.org/" rel="nofollow">Silex</a></h6>
-                <h6>Использует <a target="_blank" href="http://getbootstrap.com/" rel="nofollow">Twitter Bootstrap</a></h6>
+        {{ include('navbar.html.twig') }}
+        {% block content %}
+            <div class="row">
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                    {% block maincolumn %}
+                        <h2>Hello, world!!!</h2>
+                    {% endblock maincolumn %}
+                </div>
+                <div class="col-md-4 hidden-xs hidden-sm">
+                    {% block sidebar %}
+                        <h6>
+                            <span class="glyphicon glyphicon-fire"></span>
+                            <a href="http://feeds.feedburner.com/kotoblog" target="_blank"> Подпишись на RSS</a>
+                            и получай обновления блога!
+                        </h6>
+                        <h6><span class="glyphicon glyphicon-send"></span> Получать обновления по электронной почте:</h6>
+                        <form>
+                            <div class="input-group">
+                                <span class="input-group-addon">@</span>
+                                <input type="text" class="form-control" placeholder="E-mail">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit">OK</button>
+                                </span>
+                            </div>
+                        </form>
+                        <h6><span class="glyphicon glyphicon-bullhorn"></span> Новое на блоге</h6>
+                        <h6><span class="glyphicon glyphicon-star"></span> Еще популярные статьи</h6>
+                        <h6><span class="glyphicon glyphicon-tags"></span> Теги</h6>
+                        <h6><span class="glyphicon glyphicon-share"></span> Ссылки</h6>
+                    {% endblock sidebar %}
+                </div>
             </div>
-        </div>
-    {% endblock footer %}
+        {% endblock content %}
+        {% block footer %}
+            <div class="row">
+                <div class="col-md-9"><h6>© 2008 Котоблог</h6></div>
+                <div class="col-md-3">
+                    <h6>Работает на <a target="_blank" href="http://silex.sensiolabs.org/" rel="nofollow">Silex</a></h6>
+                    <h6>Использует <a target="_blank" href="http://getbootstrap.com/" rel="nofollow">Twitter Bootstrap</a></h6>
+                </div>
+            </div>
+        {% endblock footer %}
+    {% endblock container %}
 </div>
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
