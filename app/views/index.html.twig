@@ -1,0 +1,10 @@
+{% extends 'layout.html.twig' %}
+{% block maincolumn %}
+    {% for blogpost in blogposts %}
+        <article>
+            <h3>{{ blogpost.title }}</h3>
+            <small>{{ blogpost.createdAt|date('Y-m-d') }}</small>
+            {{ blogpost.text|raw }}
+        </article>
+    {% endfor %}
+{% endblock maincolumn %}
