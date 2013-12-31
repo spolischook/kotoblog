@@ -1,0 +1,30 @@
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../bootstrap.php';
+
+use Symfony\Component\DomCrawler\Crawler;
+use Kotoblog\Entity\Blogpost;
+
+$crawler = new Crawler();
+
+$crawler->addXmlContent(file_get_contents(__DIR__ . '/wordpress.2013-12-30.xml'));
+$em = DoctrineBootstrap::getEntityManager();
+
+$crawler->filter('item')->each(function($item, $i) use ($em) {
+    $blogpost = new Blogpost();
+
+    $blogpost
+        ->setTitle($item->filter('title')->text())
+        ->setText($item->filter('content|encoded')->text())
+        ->setSlug($item->filter('wp|post_name')->text())
+        ->setCreatedAt(new \DateTime($item->filter('wp|post_date')->text()))
+        ->setPublish(
+            $item->filter('wp|status')->text() == 'publish' ? true : false
+        )
+    ;
+
+    $em->persist($blogpost);
+});
+
+$em->flush();
