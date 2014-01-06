@@ -1,6 +1,6 @@
-Kotoblog\Entity\Blogpost:
+Kotoblog\Entity\Article:
     type: entity
-    table: blogposts
+    table: articles
     indexes:
         id_index:
             columns: [ id ]

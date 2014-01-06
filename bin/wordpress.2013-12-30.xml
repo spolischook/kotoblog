@@ -10753,7 +10753,7 @@ namespace Kotoblog\Entity;
 
 use Kotoblog\Annotation\Mapping;
 
-class Blogpost
+class Article
 {
     /**
      * @Mapping(type="integer", default="false")
@@ -10778,7 +10778,7 @@ use Doctrine\Common\Annotations\AnnotationReader;
 
 require __DIR__ . '/../src/Kotoblog/Annotation/Mapping.php';
 $annotationReader = new AnnotationReader();
-$reflectionClass = new ReflectionClass('\\Kotoblog\\Entity\\Blogpost');
+$reflectionClass = new ReflectionClass('\\Kotoblog\\Entity\\Article');
 
 foreach ($reflectionClass->getProperties() as $reflectionProperty) {
     var_dump($annotationReader->getPropertyAnnotations($reflectionProperty));

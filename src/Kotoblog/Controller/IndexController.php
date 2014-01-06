@@ -10,9 +10,9 @@ class IndexController
 {
     public function indexAction(Request $request, Application $app)
     {
-        $blogposts = $app['repository.blogpost']->findAll();
+        $articles = $app['repository.article']->findAll();
 
-        return $app['twig']->render('index.html.twig', array('blogposts' => $blogposts));
+        return $app['twig']->render('index.html.twig', array('articles' => $articles));
     }
 
     public function aboutMeAction(Request $request, Application $app)

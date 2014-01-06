@@ -21,8 +21,8 @@ class BackendController
         $perPage = $request->query->get('count') ? $request->query->get('count') : $this->perPageDefault;
         $page    = $request->query->get('page') ? $request->query->get('page') : 1;
 
-        $articles   = $app['repository.blogpost']->findAll($perPage, ($page-1)*$perPage, array('created_at' => 'DESC'));
-        $entryCount = $app['repository.blogpost']->getCount();
+        $articles   = $app['repository.article']->findAll($perPage, ($page-1)*$perPage, array('created_at' => 'DESC'));
+        $entryCount = $app['repository.article']->getCount();
 
         return $app['twig']->render('Backend/Article/articles.html.twig', array(
             'articles'   => $articles,
@@ -32,7 +32,7 @@ class BackendController
 
     public function editArticleAction(Request $request, Application $app, $slug)
     {
-        $article = $app['repository.blogpost']->find($slug);
+        $article = $app['repository.article']->find($slug);
 
         if (!$article) {
             $app->abort(404, sprintf('The requested article with slug "%s" was not found.', $slug));

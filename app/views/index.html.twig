@@ -1,10 +1,10 @@
 {% extends 'layout.html.twig' %}
 {% block maincolumn %}
-    {% for blogpost in blogposts %}
+    {% for article in articles %}
         <article>
-            <h3>{{ blogpost.title }}</h3>
-            <small>{{ blogpost.createdAt|date('Y-m-d') }}</small>
-            {{ blogpost.text|raw }}
+            <h3>{{ article.title }}</h3>
+            <small>{{ article.createdAt|date('Y-m-d') }}</small>
+            {{ article.text|raw }}
         </article>
     {% endfor %}
 {% endblock maincolumn %}

@@ -3,9 +3,9 @@
 namespace Kotoblog\Entity;
 
 /**
- * Blogpost
+ * Article
  */
-class Blogpost
+class Article
 {
     /**
      * @var integer
@@ -53,7 +53,7 @@ class Blogpost
      *
      * @param string $title
      *
-     * @return Blogpost
+     * @return Article
      */
     public function setTitle($title)
     {
@@ -77,7 +77,7 @@ class Blogpost
      *
      * @param string $slug
      *
-     * @return Blogpost
+     * @return Article
      */
     public function setSlug($slug)
     {
@@ -101,7 +101,7 @@ class Blogpost
      *
      * @param string $text
      *
-     * @return Blogpost
+     * @return Article
      */
     public function setText($text)
     {
@@ -125,7 +125,7 @@ class Blogpost
      *
      * @param boolean $publish
      *
-     * @return Blogpost
+     * @return Article
      */
     public function setPublish($publish)
     {
@@ -149,7 +149,7 @@ class Blogpost
      *
      * @param \DateTime $createdAt
      *
-     * @return Blogpost
+     * @return Article
      */
     public function setCreatedAt($createdAt)
     {
