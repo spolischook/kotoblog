@@ -28,12 +28,14 @@ class BlogpostRepository implements RepositoryInterface
     }
 
     public function getCount() {
-
+        return $this->db->fetchColumn('SELECT COUNT(id) FROM blogposts');
     }
 
-    public function find($id)
+    public function find($slug)
     {
+        $articleData = $this->db->fetchAssoc('SELECT * FROM blogposts WHERE slug = ?', array($slug));
 
+        return $articleData ? $this->build($articleData) : false;
     }
 
     public function findAll($limit = 10, $offset = 0, $orderBy = array())
