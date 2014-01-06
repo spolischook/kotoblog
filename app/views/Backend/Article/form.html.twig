@@ -1,0 +1,44 @@
+{% extends 'Backend/layout.html.twig' %}
+{% block mainContent %}
+    <form role="form">
+        <div class="form-group">
+            {{ form_label(form.title) }}
+            {{ form_errors(form.title) }}
+            {{ form_widget(form.title) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.text) }}
+            {{ form_errors(form.text) }}
+            {{ form_widget(form.text) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.publish) }}
+            {{ form_errors(form.publish) }}
+            {{ form_widget(form.publish) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.createdAt) }}
+            {{ form_errors(form.createdAt) }}
+            {{ form_widget(form.createdAt) }}
+        </div>
+        {{ form_row(form.save) }}
+    </form>
+    {{ form_widget(form) }}
+{% endblock %}
+{% block pagination %}
+{% endblock pagination %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        CKEDITOR.replace( 'article_text', {
+            filebrowserBrowseUrl : '/js/elFinder/elfinder.html',
+            toolbar: [
+                [ 'Source'],
+                [ 'Bold', 'Italic', 'Underline', 'StrikeThrough', '-', 'RemoveFormat' ],
+                [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'Justify' ],
+                [ 'Link', 'Unlink', 'Anchor' ],
+                [ 'Image', 'Table' ]
+            ]
+        });
+    </script>
+{% endblock %}

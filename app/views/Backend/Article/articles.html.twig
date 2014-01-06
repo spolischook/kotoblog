@@ -1,0 +1,38 @@
+{% extends 'Backend/layoutList.html.twig' %}
+{% block content %}
+    <h1 class="page-header">Articles</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Slug</th>
+                <th>Publish</th>
+                <th>Created At</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for article in articles %}
+                <tr>
+                    <td>{{ article.id }}</td>
+                    <td>
+                        <a href="{{ path('adminArticle', {slug: article.slug|default('none')}) }}">
+                            {{ article.title }}
+                        </a>
+                    </td>
+                    <td>{{ article.slug }}</td>
+                    <td>
+                        {% if(article.publish == 1) %}
+                            <span class="label label-success">Publish</span>
+                        {% else %}
+                            <span class="label label-default">Draft</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ article.createdAt|date("Y-m-d") }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}

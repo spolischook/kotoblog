@@ -1,0 +1,29 @@
+{% extends 'Backend/layout.html.twig' %}
+{% block mainContent %}
+    {% set requestUrl = app.request.getSchemeAndHttpHost~app.request.pathInfo %}
+    {% set pageCounter %}
+    <div class="btn-group pull-right">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            {{ app.request.query.get('count')|default(10) }} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="{{ requestUrl~'?page=1&count=5' }}">5</a></li>
+            <li><a href="{{ requestUrl~'?page=1&count=10' }}">10</a></li>
+            <li><a href="{{ requestUrl~'?page=1&count=25' }}">25</a></li>
+            <li><a href="{{ requestUrl~'?page=1&count=50' }}">50</a></li>
+            <li><a href="{{ requestUrl~'?page=1&count=100' }}">100</a></li>
+        </ul>
+    </div>
+    {% endset %}
+    {{ pageCounter }}
+    {% block content %}{% endblock %}
+    {{ pageCounter }}
+    {% block pagination %}
+        {{ render(url('adminPagination', {
+        'entry-count': entryCount,
+        'count': app.request.query.get('count'),
+        'page': app.request.query.get('page'),
+        'requestUrl': requestUrl,
+        })) }}
+    {% endblock %}
+{% endblock mainContent %}
