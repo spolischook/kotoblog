@@ -1,18 +1,45 @@
 {
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/ckeditor",
+                "version": "4.3.1",
+                "dist": {
+                    "url": "https://github.com/ckeditor/ckeditor-dev/archive/4.3.1.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "Studio-42/elFinder",
+                "version": "2.0-rc1",
+                "dist": {
+                    "url": "https://github.com/downloads/Studio-42/elFinder/elfinder-2.0-rc1.tar.gz",
+                    "type": "tar"
+                }
+            }
+        }
+    ],
     "require": {
         "silex/silex": "1.2.*@dev",
         "doctrine/dbal": "2.5.*@dev",
         "twig/twig": "1.15.*@dev",
         "twbs/bootstrap": "dev-master",
         "symfony/form": "2.4.*@dev",
-        "symfony/twig-bridge": "2.5.*@dev",
-        "symfony/security": "2.5.*@dev",
-        "symfony/validator": "2.3.*@dev"
+        "symfony/config": "2.4.*@dev",
+        "symfony/twig-bridge": "2.4.*@dev",
+        "symfony/security": "2.4.*@dev",
+        "symfony/validator": "2.4.*@dev",
+        "ckeditor/ckeditor": "4.3.1",
+        "Studio-42/elFinder": "2.0-rc1"
     },
     "require-dev": {
         "symfony/filesystem": "2.5.*@dev",
         "doctrine/orm": "2.5.*@dev",
-        "symfony/yaml": "2.5.*@dev",
+        "symfony/yaml": "2.4.*@dev",
         "symfony/dom-crawler": "2.5.*@dev",
         "symfony/css-selector": "~2.0"
     },
