@@ -2,10 +2,12 @@
 
 namespace Kotoblog\Entity;
 
+use Kotoblog\Entity\SlugAbleInterface;
+
 /**
  * Article
  */
-class Article
+class Article implements SlugAbleInterface
 {
     /**
      * @var integer
@@ -33,10 +35,36 @@ class Article
     private $publish;
 
     /**
+     * @var string
+     */
+    private $image;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $tags;
+
+    /**
      * @var \DateTime
      */
     private $createdAt;
 
+    private $file;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Get id
@@ -145,6 +173,71 @@ class Article
     }
 
     /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return Article
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Add tags
+     *
+     * @param \Kotoblog\Entity\Tag $tags
+     *
+     * @return Article
+     */
+    public function addTag(\Kotoblog\Entity\Tag $tags)
+    {
+        $this->tags[] = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param \Kotoblog\Entity\Tag $tags
+     */
+    public function removeTag(\Kotoblog\Entity\Tag $tags)
+    {
+        $this->tags->removeElement($tags);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
      * Set createdAt
      *
      * @param \DateTime $createdAt
@@ -166,5 +259,46 @@ class Article
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    public function setFile($file)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+    /**
+     * @var integer
+     */
+    private $weight;
+
+
+    /**
+     * Set weight
+     *
+     * @param integer $weight
+     *
+     * @return Article
+     */
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+
+        return $this;
+    }
+
+    /**
+     * Get weight
+     *
+     * @return integer 
+     */
+    public function getWeight()
+    {
+        return $this->weight;
     }
 }
