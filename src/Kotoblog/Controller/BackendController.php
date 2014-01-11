@@ -18,8 +18,8 @@ class BackendController
 
     public function articlesAction(Request $request, Application $app)
     {
-        $perPage = $request->query->get('count') ? $request->query->get('count') : $this->perPageDefault;
-        $page    = $request->query->get('page') ? $request->query->get('page') : 1;
+        $perPage = $request->query->get('count', $this->perPageDefault);
+        $page    = $request->query->get('page', 1);
 
         $articles   = $app['repository.article']->findBy(array(), array('created_at' => 'DESC'), $perPage, ($page-1)*$perPage);
         $entryCount = $app['repository.article']->getCount();
@@ -69,8 +69,8 @@ class BackendController
             throw new MissingMandatoryParametersException('You must specify "entry-count" parameter to render pagination');
         }
 
-        $perPage = $request->query->get('count') ? $request->query->get('count') : $this->perPageDefault;
-        $page    = $request->query->get('page') ? $request->query->get('page') : 1;
+        $perPage = $request->query->get('count', $this->perPageDefault);
+        $page    = $request->query->get('page', 1);
         $requestUrl = $request->query->get('requestUrl');
 
         return $app['twig']->render('Backend/pagination.html.twig', array(

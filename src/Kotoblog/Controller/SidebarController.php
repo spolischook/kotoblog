@@ -9,8 +9,8 @@ class SidebarController
 {
     public function getArticlesAction(Request $request, Application $app)
     {
-        $count = $request->query->get('count') ? $request->query->get('count') : 10;
-        $type = $request->query->get('type') ? $request->query->get('type') : 'latest';
+        $count = $request->query->get('count', 10);
+        $type = $request->query->get('type', 'latest');
 
         switch ($type) {
             case 'latest':
