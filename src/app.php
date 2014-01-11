@@ -72,6 +72,10 @@ $app['form_type.article'] = $app->share(function ($app) {
     return new Kotoblog\Form\ArticleType($app['data_transformer.tag']);
 });
 
+$app['twig_extension.kotoblog'] = $app->share(function ($app) {
+    return new Kotoblog\TwigExtensionKotoblog($app['repository.tag']);
+});
+
 $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
     $request = $app['request'];
     $cookies = $request->cookies;
@@ -83,8 +87,7 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
     }
 
     $twig->addGlobal('screenWidth', $screenWidth);
-    $twig->addFunction('image', new \Twig_SimpleFunction('image', 'Kotoblog\TwigExtension::getImage'));
-    $twig->addFunction('tagCloud', new \Twig_SimpleFunction('tagCloud', 'Kotoblog\TwigExtension::getTagCloud'));
+    $twig->addExtension($app['twig_extension.kotoblog']);
 
     return $twig;
 }));

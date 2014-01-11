@@ -28,3 +28,7 @@ body {
     text-align: center;
     color: red;
 }
+
+.tag {
+    line-height: 60%;
+}
