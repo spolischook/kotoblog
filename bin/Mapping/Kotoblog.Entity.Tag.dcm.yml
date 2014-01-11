@@ -1,0 +1,24 @@
+Kotoblog\Entity\Tag:
+    type: entity
+    table: tags
+    indexes:
+        id_index:
+            columns: [ id ]
+        slug_index:
+            columns: [ slug ]
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+        slug:
+            type: string
+        weight:
+            type: integer
+            nullable: true
+    manyToMany:
+        articles:
+          targetEntity: Article
