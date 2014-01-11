@@ -12,10 +12,10 @@ class DoctrineBootstrap
 {
     public static function getEntityManager()
     {
-        $config = Setup::createYAMLMetadataConfiguration(array(__DIR__."/bin/Mapping"), $isDevMode = true);
-        require __DIR__ . '/app/config/db.php';
-        $conn = $dbConfig;
+        $metaDataConfig = Setup::createYAMLMetadataConfiguration(array(__DIR__."/bin/Mapping"), $isDevMode = true);
+        require __DIR__ . '/app/config/config.php';
+        $conn = $config['db'];
 
-        return $entityManager = EntityManager::create($conn, $config);
+        return $entityManager = EntityManager::create($conn, $metaDataConfig);
     }
 }
