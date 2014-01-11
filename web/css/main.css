@@ -1,0 +1,23 @@
+body {
+    background-color: #F8F8F8;
+    padding: 0 10px;
+    background-image: url('img/background.png');
+}
+
+.container {
+    max-width: 1000px;
+    border: 1px solid #EEE;
+    background-color: #FFF;
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.2);
+}
+
+.affix {
+    top: 0;
+    border-width: 0 0 1px;
+    border-radius: 0;
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    padding: 0 10%;
+}
