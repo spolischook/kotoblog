@@ -7,6 +7,7 @@
     {% block styles %}
         <link href="/css/bootstrap.min.css" rel="stylesheet">
         <link href="/css/main.css" rel="stylesheet">
+        <link href="/css/hightlight-github.css" rel="stylesheet">
     {% endblock %}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -68,5 +69,12 @@
 </div>
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+<script src="/js/highlight.pack.js"></script>
+<script>
+    hljs.tabReplace = '    ';
+    hljs.lineNodes = true;
+    hljs.initHighlightingOnLoad();
+    $('pre').each(function(i, e) {hljs.highlightBlock(e)});
+</script>
 </body>
 </html>
