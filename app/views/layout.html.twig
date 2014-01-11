@@ -49,9 +49,14 @@
                             </div>
                         </form>
                         <h6><span class="glyphicon glyphicon-bullhorn"></span> Новое на блоге</h6>
+                            {{ render(url('sidebarArticles', {'count': 10, 'type': 'latest'})) }}
                         <h6><span class="glyphicon glyphicon-star"></span> Еще популярные статьи</h6>
+                            {{ render(url('sidebarArticles', {'count': 10, 'type': 'popular'})) }}
                         <h6><span class="glyphicon glyphicon-tags"></span> Теги</h6>
+                            {{ render(url('sidebarTags')) }}
                         <h6><span class="glyphicon glyphicon-share"></span> Ссылки</h6>
+                            <h6><a href="http://exercise.com" target="_blank">Exercise.com</a></h6>
+                            <h6><a href="http://cherry-t-art.com" target="_blank">Сайт художницы Татьяны Черевань</a></h6>
                     {% endblock sidebar %}
                 </div>
             </div>
