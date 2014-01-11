@@ -3,11 +3,12 @@
 namespace Kotoblog\Entity;
 
 use Kotoblog\Entity\SlugAbleInterface;
+use Kotoblog\Entity\SortableInterface;
 
 /**
  * Article
  */
-class Article implements SlugAbleInterface
+class Article implements SlugAbleInterface, SortableInterface
 {
     /**
      * @var integer
@@ -300,5 +301,10 @@ class Article implements SlugAbleInterface
     public function getWeight()
     {
         return $this->weight;
+    }
+
+    public static function getPreferredSorting()
+    {
+        return self::LATEST;
     }
 }
