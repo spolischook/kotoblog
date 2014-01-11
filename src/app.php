@@ -41,6 +41,11 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => array(__DIR__ . '/../app/views')
 ));
 
+
+$app['repository.tag'] = $app->share(function ($app) {
+    return new Kotoblog\Repository\TagRepository($app['db']);
+});
+
 $app['repository.article'] = $app->share(function ($app) {
     return new Kotoblog\Repository\ArticleRepository($app['db']);
 });
