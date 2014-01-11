@@ -1,0 +1,30 @@
+{% extends 'layout.html.twig' %}
+{% block styles %}
+    {{ parent() }}
+    <style>
+        .error-template {padding: 40px 15px;text-align: center;}
+        .error-actions {margin-top:15px;margin-bottom:15px;}
+        .error-actions .btn { margin-right:10px; }
+    </style>
+
+{% endblock %}
+{% block cookie %}
+    <script>
+        if (navigator.cookieEnabled == true) {
+            window.location = "{{ path('homepage') }}";
+        }
+    </script>
+{% endblock %}
+{% block container %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+                <h1>Oops!</h1>
+                <h2>Please enable cookie in your browser!</h2>
+                <div class="error-details">
+                    Sorry, an error has occured, You can get more info about it at <a href="https://support.google.com/accounts/answer/61416">https://support.google.com/accounts/answer/61416</a>.
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
