@@ -47,5 +47,5 @@ $app['repository.tag'] = $app->share(function ($app) {
 });
 
 $app['repository.article'] = $app->share(function ($app) {
-    return new Kotoblog\Repository\ArticleRepository($app['db']);
+    return new Kotoblog\Repository\ArticleRepository($app['db'], $app['repository.tag']);
 });
