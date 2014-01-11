@@ -7,6 +7,11 @@ $app->get('/about-me', 'Kotoblog\Controller\IndexController::aboutMeAction')
 $app->get('/articles/{slug}', 'Kotoblog\Controller\IndexController::articleAction')
     ->bind('showArticle');
 
+$app->get('/sidebar/articles/', 'Kotoblog\Controller\SidebarController::getArticlesAction')
+    ->bind('sidebarArticles');
+$app->get('/sidebar/tags/', 'Kotoblog\Controller\SidebarController::getTagsAction')
+    ->bind('sidebarTags');
+
 $app->match('/login', 'Kotoblog\Controller\UserController::loginAction')
     ->bind('login');
 $app->get('/logout', 'Kotoblog\Controller\UserController::logoutAction')

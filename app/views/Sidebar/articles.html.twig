@@ -1,0 +1,3 @@
+{% for article in articles %}
+    <h6><a href="{{ path('showArticle', {'slug': article.slug}) }}">{{ article.title }}</a></h6>
+{% endfor %}
