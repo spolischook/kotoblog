@@ -8,11 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class IndexController
 {
-    protected $perPageDefault = 10;
-
     public function indexAction(Request $request, Application $app)
     {
-        $perPage  = $request->query->get('count', $this->perPageDefault);
+        $perPage  = $request->query->get('count', $app['pagination.per_page']);
         $articles = $app['repository.article']->findBy(array(), array('created_at' => 'DESC'), $perPage);
 
         return $app['twig']->render('index.html.twig', array('articles' => $articles));
@@ -20,7 +18,7 @@ class IndexController
 
     public function articlesAction(Request $request, Application $app)
     {
-        $perPage = $request->query->get('count', $this->perPageDefault);
+        $perPage = $request->query->get('count', $app['pagination.per_page']);
         $page    = $request->query->get('page', 1);
 
         $articles = $app['repository.article']->findBy(array(), array('created_at' => 'DESC'), $perPage, ($page-1)*$perPage);

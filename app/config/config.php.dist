@@ -12,3 +12,5 @@ $config['db'] = array(
         1002=>'SET NAMES utf8'
     )
 );
+
+$config['pagination.per_page'] = 10;

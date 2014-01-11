@@ -9,8 +9,6 @@ use Kotoblog\Form\ArticleType;
 
 class BackendController
 {
-    protected $perPageDefault = 10;
-
     public function indexAction(Request $request, Application $app)
     {
         return $app['twig']->render('Backend/index.html.twig');
@@ -18,7 +16,7 @@ class BackendController
 
     public function articlesAction(Request $request, Application $app)
     {
-        $perPage = $request->query->get('count', $this->perPageDefault);
+        $perPage = $request->query->get('count', $app['pagination.per_page']);
         $page    = $request->query->get('page', 1);
 
         $articles   = $app['repository.article']->findBy(array(), array('created_at' => 'DESC'), $perPage, ($page-1)*$perPage);
@@ -69,7 +67,7 @@ class BackendController
             throw new MissingMandatoryParametersException('You must specify "entry-count" parameter to render pagination');
         }
 
-        $perPage = $request->query->get('count', $this->perPageDefault);
+        $perPage = $request->query->get('count', $app['pagination.per_page']);
         $page    = $request->query->get('page', 1);
         $requestUrl = $request->query->get('requestUrl');
 
