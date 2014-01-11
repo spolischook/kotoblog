@@ -7,4 +7,33 @@
             {{ article.text|raw }}
         </article>
     {% endfor %}
+    <div class="showMore"></div>
 {% endblock maincolumn %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var page = 1;
+        var showMore = $('.showMore');
+        var loader = '<img id="loading" src="/img/ajax-loader.gif" />';
+        $(window).scroll(function () {
+            if ($(window).scrollTop() >= $(document).height() - $(window).height() - 500 && $('.showMore').length > 0) {
+                $('.showMore').replaceWith(loader);
+                $.ajax({
+                    type: "GET",
+                    url: "{{ path('articles') }}",
+                    data: { count: 10, page: page },
+                    statusCode: {
+                        404: function() {
+                            $('#loading').remove();
+                        }
+                    }
+                })
+                .done(function( data ) {
+                    $('#loading').replaceWith(data);
+                    console.log( page );
+                    page++;
+                });
+            }
+        });
+    </script>
+{% endblock %}

@@ -21,3 +21,8 @@ body {
     z-index: 1030;
     padding: 0 10%;
 }
+
+img#loading {
+    display: block;
+    margin: 10px auto;
+}
