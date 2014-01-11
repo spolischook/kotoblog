@@ -35,9 +35,4 @@ class ImageHandler extends Image
 
         return $path;
     }
-
-    public function makeHtmlImage($path, $width, $height)
-    {
-        return "<img src='$path' class='img-thumbnail' width='$width' height='$height' />";
-    }
 }

@@ -11,6 +11,8 @@ class TwigExtensionKotoblog extends \Twig_Extension
 {
     protected $tagRepository;
 
+    private $environment;
+
     public function __construct(TagRepository $tagRepository)
     {
         $this->tagRepository = $tagRepository;
@@ -19,8 +21,8 @@ class TwigExtensionKotoblog extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('tagCloud', array($this, 'getTagCloud')),
-            new \Twig_SimpleFunction('image', array($this, 'getImage')),
+            new \Twig_SimpleFunction('tagCloud', array($this, 'getTagCloud'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('image', array($this, 'getImage'), array('is_safe' => array('html'))),
         );
     }
 
@@ -33,7 +35,11 @@ class TwigExtensionKotoblog extends \Twig_Extension
         );
         $path = $imageHandler->saveImage($img, $src, $filterName);
 
-        return $imageHandler->makeHtmlImage($path, $imageHandler->filters[$filterName]['width'], $imageHandler->filters[$filterName]['height']);
+        return $this->environment->render('Twig/image.html.twig', array(
+            'path' => $path,
+            'width' => $imageHandler->filters[$filterName]['width'],
+            'height' => $imageHandler->filters[$filterName]['height'],
+        ));
     }
 
     public function getTagCloud(array $parameters = array())
@@ -49,7 +55,6 @@ class TwigExtensionKotoblog extends \Twig_Extension
             array($tagCloudConfig['orderBy'] => $tagCloudConfig['order']),
             $tagCloudConfig['number']
         );
-
 
         $tagCount = count($tags);
 
@@ -77,14 +82,10 @@ class TwigExtensionKotoblog extends \Twig_Extension
             $tagWeight = $tagWeight + $ratio;
         }
 
-        $tagCloud = '';
-
-        /** @var $tag Tag */
-        foreach ($tags as $tag) {
-            $tagCloud .= sprintf('<a class="tag" href="#" style="font-size: %s%s;">%s</a> ', $tag->getWeight(), $tagCloudConfig['unit'], $tag->getTitle());
-        }
-
-        return $tagCloud;
+        return $this->environment->render('Twig/tagsCloud.html.twig', array(
+            'tags' => $tags,
+            'unit' => $tagCloudConfig['unit'],
+        ));
     }
 
     /**
@@ -95,5 +96,10 @@ class TwigExtensionKotoblog extends \Twig_Extension
     public function getName()
     {
         return 'kotoblog';
+    }
+
+    public function initRuntime(\Twig_Environment $environment)
+    {
+        $this->environment = $environment;
     }
 }

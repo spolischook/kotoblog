@@ -65,7 +65,7 @@
                             {{ render(url('sidebarArticles', {'count': 10, 'type': 'popular'})) }}
                         <h6><span class="glyphicon glyphicon-tags"></span> Теги</h6>
                             <div class="row" style="padding: 0 20px;">
-                                {{ tagCloud({'number': 15})|raw }}
+                                {{ tagCloud({'number': 15})  }}
                             </div>
                         <h6><span class="glyphicon glyphicon-share"></span> Ссылки</h6>
                             <h6><a href="http://exercise.com" target="_blank">Exercise.com</a></h6>
