@@ -4,11 +4,17 @@ namespace Kotoblog\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ArticleType extends AbstractType
 {
+    private $tagTransformer;
+
+    public function __construct($tagTransformer)
+    {
+        $this->tagTransformer = $tagTransformer;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -22,13 +28,20 @@ class ArticleType extends AbstractType
                     'class' => 'form-control wysiwyg',
                 )
             ))
+            ->add(
+                $builder->create('tags', 'text', array(
+                    'attr' => array('class' => 'form-control'),
+                    'required'  => false,
+                ))
+                ->addModelTransformer($this->tagTransformer)
+            )
             ->add('publish', 'choice', array(
                 'choices'   => array(1 => 'Publish', 0 => 'Draft'),
-                'required'  => false,
                 'attr' => array('class' => 'form-control'),
             ))
-            ->add('createdAt', 'datetime', array(
-                'attr' => array('type' => 'date'),
+            ->add('file', 'file', array(
+                'data' => null,
+                'required'  => false,
             ))
             ->add('save', 'submit', array('attr' => array('class' => 'btn btn-default')));
     }
