@@ -7,5 +7,6 @@
             {{ image(article.image, 'articleMainImage')|raw }}
         {% endif %}
         {{ article.text|raw }}
+        {% include 'articleTags.html.twig' with {'tags': article.tags} %}
     </article>
 {% endblock maincolumn %}

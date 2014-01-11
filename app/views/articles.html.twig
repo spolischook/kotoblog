@@ -3,6 +3,7 @@
         <h3><a href="{{ path('showArticle', {'slug': article.slug}) }}">{{ article.title }}</a></h3>
         <h6>{{ article.createdAt|date('Y-m-d') }}</h6>
         {{ article.text|raw }}
+        {% include 'articleTags.html.twig' with {'tags': article.tags} %}
     </article>
 {% endfor %}
 <div class="showMore"></div>
