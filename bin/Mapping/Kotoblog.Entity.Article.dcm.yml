@@ -4,6 +4,8 @@ Kotoblog\Entity\Article:
     indexes:
         id_index:
             columns: [ id ]
+        slug_index:
+            columns: [ slug ]
     id:
         id:
             type: integer
@@ -16,8 +18,14 @@ Kotoblog\Entity\Article:
             type: string
         text:
             type: text
+        image:
+            type: string
+            nullable: true
         publish:
             type: boolean
+        weight:
+            type: integer
+            nullable: true
         createdAt:
             type: datetime
             column: created_at
