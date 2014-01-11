@@ -22,7 +22,9 @@ body {
     padding: 0 10%;
 }
 
-img#loading {
+#loading {
     display: block;
     margin: 10px auto;
+    text-align: center;
+    color: red;
 }

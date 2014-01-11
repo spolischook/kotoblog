@@ -32,7 +32,11 @@
                     $('#loading').replaceWith(data);
                     console.log( page );
                     page++;
-                });
+                })
+                .fail(function() {
+                    $('#loading').replaceWith('<div id="loading">Oops! Something went wrong...</div>');
+                })
+                ;
             }
         });
     </script>
