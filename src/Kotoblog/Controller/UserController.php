@@ -11,7 +11,7 @@ class UserController
     public function loginAction(Request $request, Application $app)
     {
         if ($app['security']->getToken()) {
-            return $app->redirect($app['url_generator']->generate('homepage'));
+            return $app->redirect($app['url_generator']->generate('articles'));
         }
 
         $form = $app['form.factory']->createBuilder('form')
@@ -32,6 +32,6 @@ class UserController
     public function logoutAction(Request $request, Application $app)
     {
         $app['session']->clear();
-        return $app->redirect($app['url_generator']->generate('homepage'));
+        return $app->redirect($app['url_generator']->generate('articles'));
     }
 }
