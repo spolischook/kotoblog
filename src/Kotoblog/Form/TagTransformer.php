@@ -23,7 +23,7 @@ class TagTransformer implements DataTransformerInterface
      */
     public function transform($tags)
     {
-        if (!$tags || $tags->isEmpty()) {
+        if ($tags->isEmpty()) {
             return "";
         }
 
@@ -32,7 +32,7 @@ class TagTransformer implements DataTransformerInterface
 
     public function reverseTransform($tagsString)
     {
-        if (!$tagsString) {
+        if (null === $tagsString) {
             return;
         }
 
