@@ -1,6 +1,17 @@
 {% extends 'Backend/layout.html.twig' %}
 {% block mainContent %}
-    <form role="form">
+    {% set alertTypeAvaillable = [ 'info', 'success', 'warning', 'error'] %}
+    {% for alert in alertTypeAvaillable %}
+        {% for message in app.session.getFlashBag.get(alert) %}
+            <div class="alert alert-{{ alert }}" >
+                <button class="close" data-dismiss="alert">×</button>
+                {{ message|trans }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <a href="{{ path('showArticle', {'slug': form.vars.value.slug}) }}"  class="btn btn-info pull-right" target="_blank">View Article</a>
+    <h1>{{ title }}</h1>
+    <form role="form" {{ form_enctype(form) }} method="post">
         <div class="form-group">
             {{ form_label(form.title) }}
             {{ form_errors(form.title) }}
@@ -12,18 +23,24 @@
             {{ form_widget(form.text) }}
         </div>
         <div class="form-group">
+            {{ form_label(form.tags) }}
+            {{ form_errors(form.tags) }}
+            {{ form_widget(form.tags) }}
+        </div>
+        <div class="form-group">
             {{ form_label(form.publish) }}
             {{ form_errors(form.publish) }}
             {{ form_widget(form.publish) }}
         </div>
         <div class="form-group">
-            {{ form_label(form.createdAt) }}
-            {{ form_errors(form.createdAt) }}
-            {{ form_widget(form.createdAt) }}
+            {{ form_label(form.file) }}
+            {{ form_errors(form.file) }}
+            {{ form_widget(form.file) }}
         </div>
+        {{ form_rest(form) }}
         {{ form_row(form.save) }}
     </form>
-    {{ form_widget(form) }}
+
 {% endblock %}
 {% block pagination %}
 {% endblock pagination %}
@@ -31,14 +48,24 @@
     {{ parent() }}
     <script>
         CKEDITOR.replace( 'article_text', {
-            filebrowserBrowseUrl : '/js/elFinder/elfinder.html',
+            allowedContent: true,
+            filebrowserBrowseUrl : '/elfinder.html?v=4566',
+            extraPlugins: 'highlight_js,pbckcode,oembed',
             toolbar: [
                 [ 'Source'],
                 [ 'Bold', 'Italic', 'Underline', 'StrikeThrough', '-', 'RemoveFormat' ],
                 [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'Justify' ],
-                [ 'Link', 'Unlink', 'Anchor' ],
+                [ 'Link', 'Unlink', 'Anchor', '-', 'Highlight', '-', 'pbckcode', '-', 'oembed' ],
                 [ 'Image', 'Table' ]
             ]
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#article_tags").tagit({
+                availableTags: [{{ allTags()|raw }}],
+                allowSpaces: true
+            });
         });
     </script>
 {% endblock %}
