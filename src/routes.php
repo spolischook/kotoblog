@@ -4,6 +4,8 @@ $app->get('/', 'Kotoblog\Controller\IndexController::indexAction')
     ->bind('homepage');
 $app->get('/about-me', 'Kotoblog\Controller\IndexController::aboutMeAction')
     ->bind('aboutMe');
+$app->get('/articles/{slug}', 'Kotoblog\Controller\IndexController::articleAction')
+    ->bind('showArticle');
 
 $app->match('/login', 'Kotoblog\Controller\UserController::loginAction')
     ->bind('login');

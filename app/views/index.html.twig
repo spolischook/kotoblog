@@ -2,8 +2,8 @@
 {% block maincolumn %}
     {% for article in articles %}
         <article>
-            <h3>{{ article.title }}</h3>
-            <small>{{ article.createdAt|date('Y-m-d') }}</small>
+            <h3><a href="{{ path('showArticle', {'slug': article.slug}) }}">{{ article.title }}</a></h3>
+            <h6>{{ article.createdAt|date('Y-m-d') }}</h6>
             {{ article.text|raw }}
         </article>
     {% endfor %}

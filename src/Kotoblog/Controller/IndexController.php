@@ -15,6 +15,13 @@ class IndexController
         return $app['twig']->render('index.html.twig', array('articles' => $articles));
     }
 
+    public function articleAction(Request $request, Application $app, $slug)
+    {
+        $article = $app['repository.article']->findOneBySlug($slug);
+
+        return $app['twig']->render('article.html.twig', array('article' => $article));
+    }
+
     public function aboutMeAction(Request $request, Application $app)
     {
         return $app['twig']->render('about-me.html.twig');

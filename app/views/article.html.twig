@@ -1,0 +1,11 @@
+{% extends 'layout.html.twig' %}
+{% block maincolumn %}
+    <article>
+        <h3>{{ article.title }}</h3>
+        <h6>{{ article.createdAt|date('Y-m-d') }}</h6>
+        {% if article.image|default('null') != 'null' %}
+            {{ image(article.image, 'articleMainImage')|raw }}
+        {% endif %}
+        {{ article.text|raw }}
+    </article>
+{% endblock maincolumn %}
