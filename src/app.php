@@ -41,6 +41,20 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => array(__DIR__ . '/../app/views')
 ));
 
+$app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
+    $twig->addFunction('allTags', new \Twig_SimpleFunction('allTags', function() use ($app) {
+        $tags = $app['repository.tag']->findAll();
+
+        $tagsString = '';
+        foreach ($tags as $tag) {
+            $tagsString .= '"' . $tag->getTitle() . '",';
+        }
+
+        return rtrim($tagsString, ',');
+    }));
+
+    return $twig;
+}));
 
 $app['repository.tag'] = $app->share(function ($app) {
     return new Kotoblog\Repository\TagRepository($app['db']);
@@ -49,3 +63,28 @@ $app['repository.tag'] = $app->share(function ($app) {
 $app['repository.article'] = $app->share(function ($app) {
     return new Kotoblog\Repository\ArticleRepository($app['db'], $app['repository.tag']);
 });
+
+$app['data_transformer.tag'] = $app->share(function ($app) {
+    return new \Kotoblog\Form\TagTransformer($app['repository.tag']);
+});
+
+$app['form_type.article'] = $app->share(function ($app) {
+    return new Kotoblog\Form\ArticleType($app['data_transformer.tag']);
+});
+
+$app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
+    $request = $app['request'];
+    $cookies = $request->cookies;
+    $screenWidth = null;
+
+    if ($cookies->has('screenWidth'))
+    {
+        $screenWidth = $cookies->get('screenWidth');
+    }
+
+    $twig->addGlobal('screenWidth', $screenWidth);
+    $twig->addFunction('image', new \Twig_SimpleFunction('image', 'Kotoblog\TwigExtension::getImage'));
+    $twig->addFunction('tagCloud', new \Twig_SimpleFunction('tagCloud', 'Kotoblog\TwigExtension::getTagCloud'));
+
+    return $twig;
+}));
