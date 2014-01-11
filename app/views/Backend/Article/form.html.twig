@@ -36,6 +36,9 @@
             {{ form_label(form.file) }}
             {{ form_errors(form.file) }}
             {{ form_widget(form.file) }}
+            {% if form.vars.value.image|default('null') != 'null' %}
+                {{ image(form.vars.value.image, 'articleMainImage')|raw }}
+            {% endif %}
         </div>
         {{ form_rest(form) }}
         {{ form_row(form.save) }}
