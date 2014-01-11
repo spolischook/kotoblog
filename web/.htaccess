@@ -2,7 +2,7 @@
     Options -MultiViews
 
     RewriteEngine On
-    #RewriteBase /musicbox
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
+    RewriteRule ^ index_dev.php [L]
+
 </IfModule>
