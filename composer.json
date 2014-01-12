@@ -21,6 +21,39 @@
                     "type": "tar"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "phpMorphy/phpMorphy",
+                "version": "master",
+                "dist": {
+                    "url": "http://sourceforge.net/projects/phpmorphy/files/phpmorphy/0.3.7/phpmorphy-0.3.7.zip/download",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "phpMorphy/ruDictionary",
+                "version": "master",
+                "dist": {
+                    "url": "http://sourceforge.net/projects/phpmorphy/files/phpmorphy-dictionaries/0.3.x/ru_RU/morphy-0.3.x-ru_RU-nojo-utf8.zip/download",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "phpMorphy/enDictionary",
+                "version": "master",
+                "dist": {
+                    "url": "http://sourceforge.net/projects/phpmorphy/files/phpmorphy-dictionaries/0.3.x/en_EN/morphy-0.3.x-en_EN-windows-1250.zip/download",
+                    "type": "zip"
+                }
+            }
         }
     ],
     "require": {
@@ -35,6 +68,9 @@
         "symfony/validator": "2.4.*@dev",
         "ckeditor/ckeditor": "4.3.1",
         "Studio-42/elFinder": "2.0-rc1"
+        "phpMorphy/phpMorphy": "dev-master",
+        "phpMorphy/ruDictionary": "dev-master",
+        "phpMorphy/enDictionary": "dev-master"
     },
     "require-dev": {
         "symfony/filesystem": "2.5.*@dev",
@@ -45,5 +81,17 @@
     },
     "autoload": {
         "psr-0": {"Kotoblog": "src/"}
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "cp vendor/phpMorphy/enDictionary/*  vendor/phpMorphy/phpMorphy/dicts/",
+            "cp vendor/phpMorphy/ruDictionary/*  vendor/phpMorphy/phpMorphy/dicts/",
+            "chmod 777 -R ./"
+        ],
+        "post-install-cmd": [
+            "cp vendor/phpMorphy/enDictionary/*  vendor/phpMorphy/phpMorphy/dicts/",
+            "cp vendor/phpMorphy/ruDictionary/*  vendor/phpMorphy/phpMorphy/dicts/",
+            "chmod 777 -R ./"
+        ]
     }
 }
