@@ -14,11 +14,99 @@
         {
             "type": "package",
             "package": {
+                "name": "ckeditor/highlight-plugin-for-ckeditor",
+                "version": "master",
+                "dist": {
+                    "url": "https://github.com/regia/highlight-plugin-for-ckeditor/archive/master.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "isagalaev/highlight",
+                "version": "master",
+                "dist": {
+                    "url": "https://github.com/isagalaev/highlight.js/archive/line-numbers.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/PBCKCode",
+                "version": "1.1.0",
+                "dist": {
+                    "url": "https://github.com/prbaron/PBCKCode/archive/v1.1.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/widget",
+                "version": "4.3.1",
+                "dist": {
+                    "url": "http://download.ckeditor.com/widget/releases/widget_4.3.1.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/dialog",
+                "version": "4.3.1",
+                "dist": {
+                    "url": "http://download.ckeditor.com/dialog/releases/dialog_4.3.1.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/oembed",
+                "version": "1.13",
+                "dist": {
+                    "url": "http://download.ckeditor.com/oembed/releases/oembed_1.13.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/readMore",
+                "version": "master",
+                "dist": {
+                    "url": "https://github.com/zionsg/CKEditor-More-plugin/archive/master.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
                 "name": "Studio-42/elFinder",
                 "version": "2.0-rc1",
                 "dist": {
                     "url": "https://github.com/downloads/Studio-42/elFinder/elfinder-2.0-rc1.tar.gz",
                     "type": "tar"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "aehlke/tag-it",
+                "version": "master",
+                "dist": {
+                    "url": "https://github.com/aehlke/tag-it/archive/master.zip",
+                    "type": "zip"
                 }
             }
         },
@@ -54,11 +142,34 @@
                     "type": "zip"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "phpMorphy/ukDictionary",
+                "version": "master",
+                "dist": {
+                    "url": "http://sourceforge.net/projects/phpmorphy/files/phpmorphy-dictionaries/0.3.x/uk_UA/morphy-0.3.x-uk_UA-ispell-utf8.zip/download",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "phpMorphy/deDictionary",
+                "version": "master",
+                "dist": {
+                    "url": "http://sourceforge.net/projects/phpmorphy/files/phpmorphy-dictionaries/0.3.x/de_DE/morphy-0.3.x-de_DE-utf8.zip/download",
+                    "type": "zip"
+                }
+            }
         }
     ],
     "require": {
         "silex/silex": "1.2.*@dev",
         "doctrine/dbal": "2.5.*@dev",
+        "gedmo/doctrine-extensions": "dev-wip-v2.4.0",
         "twig/twig": "1.15.*@dev",
         "twbs/bootstrap": "dev-master",
         "symfony/form": "2.4.*@dev",
@@ -66,14 +177,28 @@
         "symfony/twig-bridge": "2.4.*@dev",
         "symfony/security": "2.4.*@dev",
         "symfony/validator": "2.4.*@dev",
+        "intervention/image": "dev-master",
+        "aehlke/tag-it": "*",
         "ckeditor/ckeditor": "4.3.1",
-        "Studio-42/elFinder": "2.0-rc1"
+        "ckeditor/highlight-plugin-for-ckeditor": "dev-master",
+        "isagalaev/highlight": "master",
+        "ckeditor/PBCKCode": "1.1.0",
+        "ckeditor/oembed": "1.13",
+        "ckeditor/dialog": "4.3.1",
+        "ckeditor/widget": "4.3.1",
+        "ckeditor/readMore": "master",
+        "Studio-42/elFinder": "2.0-rc1",
         "phpMorphy/phpMorphy": "dev-master",
         "phpMorphy/ruDictionary": "dev-master",
-        "phpMorphy/enDictionary": "dev-master"
+        "phpMorphy/enDictionary": "dev-master",
+        "phpMorphy/deDictionary": "dev-master",
+        "phpMorphy/ukDictionary": "dev-master",
+        "webmil/text-language-detect": "dev-master"
     },
+    "minimum-stability": "dev",
     "require-dev": {
         "symfony/filesystem": "2.5.*@dev",
+        "symfony/browser-kit": ">=2.3,<2.4-dev",
         "doctrine/orm": "2.5.*@dev",
         "symfony/yaml": "2.4.*@dev",
         "symfony/dom-crawler": "2.5.*@dev",
@@ -86,12 +211,44 @@
         "post-update-cmd": [
             "cp vendor/phpMorphy/enDictionary/*  vendor/phpMorphy/phpMorphy/dicts/",
             "cp vendor/phpMorphy/ruDictionary/*  vendor/phpMorphy/phpMorphy/dicts/",
-            "chmod 777 -R ./"
+            "cp vendor/phpMorphy/ukDictionary/*  vendor/phpMorphy/phpMorphy/dicts/",
+            "cp vendor/phpMorphy/deDictionary/*  vendor/phpMorphy/phpMorphy/dicts/",
+            "cp -avr vendor/ckeditor/ckeditor/   web/js/",
+            "cp -avr vendor/aehlke/tag-it/       web/js/",
+            "cp -avr vendor/ckeditor/oembed/oembed/   web/js/ckeditor/plugins/",
+            "cp -avr vendor/ckeditor/readMore/wpmore/ web/js/ckeditor/plugins/",
+            "cp -avr vendor/Studio-42/elFinder/       web/js/elFinder/",
+            "cp -avr vendor/ckeditor/highlight-plugin-for-ckeditor/highlight_js/ web/js/ckeditor/plugins/",
+            "python3 vendor/isagalaev/highlight/tools/build.py",
+            "cp      vendor/isagalaev/highlight/build/highlight.pack.js     web/js/highlight.js",
+            "cp vendor/twbs/bootstrap/dist/css/bootstrap.min.css            web/css/bootstrap.min.css",
+            "cp vendor/twbs/bootstrap/docs/examples/signin/signin.css       web/css/signin.css",
+            "cp vendor/twbs/bootstrap/docs/examples/dashboard/dashboard.css web/css/dashboard.css",
+            "cp vendor/twbs/bootstrap/dist/js/bootstrap.min.js              web/js/bootstrap.min.js",
+            "cp vendor/twbs/bootstrap/docs/assets/js/vendor/holder.js       web/js/holder.js",
+            "cp -avr vendor/twbs/bootstrap/dist/fonts/ web/fonts/",
+            "mkdir -p web/js/ckeditor/plugins/ckimagepaste/ && cp web/js/ckImagePaste.js web/js/ckeditor/plugins/ckimagepaste/plugin.js"
         ],
         "post-install-cmd": [
             "cp vendor/phpMorphy/enDictionary/*  vendor/phpMorphy/phpMorphy/dicts/",
             "cp vendor/phpMorphy/ruDictionary/*  vendor/phpMorphy/phpMorphy/dicts/",
-            "chmod 777 -R ./"
+            "cp vendor/phpMorphy/ukDictionary/*  vendor/phpMorphy/phpMorphy/dicts/",
+            "cp vendor/phpMorphy/deDictionary/*  vendor/phpMorphy/phpMorphy/dicts/",
+            "cp -avr vendor/ckeditor/ckeditor/   web/js/",
+            "cp -avr vendor/aehlke/tag-it/       web/js/",
+            "cp -avr vendor/ckeditor/oembed/oembed/   web/js/ckeditor/plugins/",
+            "cp -avr vendor/ckeditor/readMore/wpmore/ web/js/ckeditor/plugins/",
+            "cp -avr vendor/Studio-42/elFinder/       web/js/elFinder/",
+            "cp -avr vendor/ckeditor/highlight-plugin-for-ckeditor/highlight_js/ web/js/ckeditor/plugins/",
+            "python3 vendor/isagalaev/highlight/tools/build.py",
+            "cp      vendor/isagalaev/highlight/build/highlight.pack.js     web/js/highlight.js",
+            "cp vendor/twbs/bootstrap/dist/css/bootstrap.min.css            web/css/bootstrap.min.css",
+            "cp vendor/twbs/bootstrap/docs/examples/signin/signin.css       web/css/signin.css",
+            "cp vendor/twbs/bootstrap/docs/examples/dashboard/dashboard.css web/css/dashboard.css",
+            "cp vendor/twbs/bootstrap/dist/js/bootstrap.min.js              web/js/bootstrap.min.js",
+            "cp vendor/twbs/bootstrap/docs/assets/js/vendor/holder.js       web/js/holder.js",
+            "cp -avr vendor/twbs/bootstrap/dist/fonts/ web/fonts/",
+            "mkdir -p web/js/ckeditor/plugins/ckimagepaste/ && cp web/js/ckImagePaste.js web/js/ckeditor/plugins/ckimagepaste/plugin.js"
         ]
     }
 }
