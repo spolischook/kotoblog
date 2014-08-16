@@ -2,23 +2,22 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/base_script.php';
+require __DIR__ . '/../app/config/config.php';
 
 use Symfony\Component\Filesystem\Filesystem;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationRegistry;
 
 $filesystem = new Filesystem();
 
 //install assets
-$filesystem->copy(__DIR__ . '/../vendor/twbs/bootstrap/dist/css/bootstrap.min.css', __DIR__ . '/../web/css/bootstrap.min.css', $override = true);
-$filesystem->copy(__DIR__ . '/../vendor/twbs/bootstrap/docs/examples/signin/signin.css', __DIR__ . '/../web/css/signin.css', $override = true);
-$filesystem->copy(__DIR__ . '/../vendor/twbs/bootstrap/docs/examples/dashboard/dashboard.css', __DIR__ . '/../web/css/dashboard.css', $override = true);
+//$filesystem->copy(__DIR__ . '/../vendor/twbs/bootstrap/dist/css/bootstrap.min.css', __DIR__ . '/../web/css/bootstrap.min.css', $override = true);
+//$filesystem->copy(__DIR__ . '/../vendor/twbs/bootstrap/docs/examples/signin/signin.css', __DIR__ . '/../web/css/signin.css', $override = true);
+//$filesystem->copy(__DIR__ . '/../vendor/twbs/bootstrap/docs/examples/dashboard/dashboard.css', __DIR__ . '/../web/css/dashboard.css', $override = true);
 $filesystem->mirror(__DIR__ . '/../vendor/twbs/bootstrap/dist/fonts/', __DIR__ . '/../web/fonts/');
-$filesystem->copy(__DIR__ . '/../vendor/twbs/bootstrap/dist/js/bootstrap.min.js', __DIR__ . '/../web/js/bootstrap.min.js', $override = true);
-$filesystem->copy(__DIR__ . '/../vendor/twbs/bootstrap/docs/assets/js/holder.js', __DIR__ . '/../web/js/holder.js', $override = true);
+//$filesystem->copy(__DIR__ . '/../vendor/twbs/bootstrap/dist/js/bootstrap.min.js', __DIR__ . '/../web/js/bootstrap.min.js', $override = true);
+//$filesystem->copy(__DIR__ . '/../vendor/twbs/bootstrap/docs/assets/js/holder.js', __DIR__ . '/../web/js/holder.js', $override = true);
 
-show_run("Generate Entities", "vendor/bin/doctrine orm:generate-entities " . __DIR__ . "/../src --regenerate-entities");
-show_run("Drop DB", "vendor/bin/doctrine orm:schema-tool:drop --force");
-show_run("Create DB", "vendor/bin/doctrine orm:schema-tool:create");
+//show_run("Generate Entities", "vendor/bin/doctrine orm:generate-entities " . __DIR__ . "/../src --regenerate-entities");
+//show_run("Drop DB", "vendor/bin/doctrine orm:schema-tool:drop --force");
+//show_run("Create DB", "vendor/bin/doctrine orm:schema-tool:create");
 
 show_run("Changing permissions", "chmod -R 777 app/cache src/");

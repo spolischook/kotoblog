@@ -31,6 +31,11 @@ class Article implements SlugAbleInterface, SortableInterface
     private $text;
 
     /**
+     * @var string
+     */
+    private $textSource;
+
+    /**
      * @var boolean
      */
     private $publish;
@@ -58,6 +63,7 @@ class Article implements SlugAbleInterface, SortableInterface
     public function __construct()
     {
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function setId($id)
@@ -306,5 +312,24 @@ class Article implements SlugAbleInterface, SortableInterface
     public static function getPreferredSorting()
     {
         return self::LATEST;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTextSource()
+    {
+        return $this->textSource;
+    }
+
+    /**
+     * @param string $textSource
+     * @return $this
+     */
+    public function setTextSource($textSource)
+    {
+        $this->textSource = $textSource;
+
+        return $this;
     }
 }

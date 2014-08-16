@@ -5,9 +5,9 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-        var page = 1;
+        var page = 2;
         var showMore = $('.showMore');
-        var loader = '<img id="loading" src="/img/ajax-loader.gif" />';
+        var loader = '<img id="loading" src="{{ app.request.basepath }}/img/ajax-loader.gif" />';
         $(window).scroll(function () {
             if ($(window).scrollTop() >= $(document).height() - $(window).height() - 500 && $('.showMore').length > 0) {
                 $('.showMore').replaceWith(loader);
@@ -22,7 +22,13 @@
                     }
                 })
                 .done(function( data ) {
-                    $('#loading').replaceWith(data);
+                    //highlight code blocks
+                    var $data = $(data);
+                    $data.find('pre code').each(function(i, e) {
+                        hljs.highlightBlock(e, hljs.tabReplace, false, hljs.lineNodes)
+                    });
+
+                    $('#loading').replaceWith($data);
                     console.log( page );
                     page++;
                 })

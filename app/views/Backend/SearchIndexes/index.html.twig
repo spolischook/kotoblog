@@ -1,0 +1,14 @@
+{% extends 'Backend/layout.html.twig' %}
+{% block mainContent %}
+    <h1>Search Indexes</h1>
+    <h5>Supported languages:</h5>
+    <h6>
+        {% for language in supportedLanguages %}
+            {{ language }}
+        {% endfor %}
+    </h6>
+    <h3>Update Search Indexes</h3>
+    <form role="form" method="post">
+        <button type="submit" class="btn btn-warning">Update</button>
+    </form>
+{% endblock %}

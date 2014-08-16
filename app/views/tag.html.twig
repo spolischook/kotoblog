@@ -1,0 +1,5 @@
+{% extends 'layout.html.twig' %}
+{% block maincolumn %}
+    <h1>Articles by tag "{{ tag.title }}"</h1>
+    {% include 'articles.html.twig' with {'articles': tag.articles} %}
+{% endblock maincolumn %}

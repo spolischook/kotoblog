@@ -1,0 +1,31 @@
+{
+  "name": "kotoblog",
+  "version": "1.0.0",
+  "homepage": "https://github.com/spolischook/kotoblog",
+  "authors": [
+    "Sergey Polischuk <spolischook@gmail.com>"
+  ],
+  "description": "Simple silex blog",
+  "main": "web/index.php",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "silex",
+    "blog",
+    "php"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ckeditor": "~4.4.3",
+    "bootstrap": "~3.2.0",
+    "tag-it": "*"
+  }
+}

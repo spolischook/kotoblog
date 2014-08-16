@@ -9,7 +9,7 @@ class ImageHandler extends Image
     public $filters = array(
         'articleMainImage' => array(
             'width' => 300,
-            'height' => 200,
+            'height' => '',
         ),
     );
 

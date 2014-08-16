@@ -10,9 +10,12 @@ class ArticleType extends AbstractType
 {
     private $tagTransformer;
 
-    public function __construct($tagTransformer)
+    private $articleTextGistTransformer;
+
+    public function __construct(TagTransformer $tagTransformer, ArticleTextGistTransformer $articleTextGistTransformer)
     {
         $this->tagTransformer = $tagTransformer;
+        $this->articleTextGistTransformer = $articleTextGistTransformer;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -22,12 +25,13 @@ class ArticleType extends AbstractType
                 'constraints' => new Assert\NotBlank(),
                 'attr' => array('class' => 'form-control'),
             ))
-            ->add('text', 'textarea', array(
+            ->add(
+                $builder->create('text', 'textarea', array(
                 'attr' => array(
-                    'rows' => '14',
-                    'class' => 'form-control wysiwyg',
-                )
-            ))
+                    'class' => 'form-control', 'style' => 'height: 350px',
+                )))
+                ->addModelTransformer($this->articleTextGistTransformer)
+            )
             ->add(
                 $builder->create('tags', 'text', array(
                     'attr' => array('class' => 'form-control'),

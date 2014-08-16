@@ -1,7 +1,6 @@
 <?php
 
 require __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../bootstrap.php';
 
 use Symfony\Component\DomCrawler\Crawler;
 use Kotoblog\Entity\Article;
@@ -13,9 +12,8 @@ require __DIR__ . '/../src/app.php';
 
 $crawler = new Crawler();
 $crawler->addXmlContent(file_get_contents(__DIR__ . '/wordpress.2013-12-30.xml'));
-$em = DoctrineBootstrap::getEntityManager();
 
-$crawler->filter('item')->each(function($item, $i) use ($em, $app) {
+$crawler->filter('item')->each(function($item, $i) use ($app) {
     $article = new Article();
 
     $article
@@ -30,3 +28,13 @@ $crawler->filter('item')->each(function($item, $i) use ($em, $app) {
 
     $app['repository.article']->save($article);
 });
+
+//for ($i=1; $i <= 68; $i++) {
+//    $article = $app['repository.article']->find($i);
+//
+//    if (!$article) {
+//        break;
+//    }
+//
+//    $article->setText(preg_replace('<pre lang="[a-zA-Z]*">', '<pre',$article->getText()));
+//}

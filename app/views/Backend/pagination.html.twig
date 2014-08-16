@@ -3,15 +3,15 @@
 {% if(pageCount > 1) %}
     <ul class="pagination">
         <li{% if(1 == page) %} class="disabled"{% endif %}>
-            <a href="{{ requestUrl~'?page=1&count='~app.request.query.get('count') }}">&laquo;</a>
+            <a href="{{ requestUrl~'?page=1&count='~app.request.query.get('count')|default(10) }}">&laquo;</a>
         </li>
         {% for i in 1..pageCount %}
             <li{% if(i == page) %} class="active"{% endif %}>
-                <a href="{{ requestUrl~'?page='~i~'&count='~app.request.query.get('count') }}">{{ i }}</a>
+                <a href="{{ requestUrl~'?page='~i~'&count='~app.request.query.get('count')|default(10) }}">{{ i }}</a>
             </li>
         {% endfor %}
         <li{% if(pageCount == page) %} class="disabled"{% endif %}>
-            <a href="{{ requestUrl~'?page='~pageCount~'&count='~app.request.query.get('count') }}">&raquo;</a>
+            <a href="{{ requestUrl~'?page='~pageCount~'&count='~app.request.query.get('count')|default(10) }}">&raquo;</a>
         </li>
     </ul>
 {% endif %}

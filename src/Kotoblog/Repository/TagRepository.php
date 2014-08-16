@@ -21,10 +21,11 @@ class TagRepository extends AbstractRepository
         if ($tag->getId()) {
             $this->db->update('tags', $tagData, array('slug' => $tag->getSlug()));
         } else {
-            $this->processSlug($tag, $tag->getTitle());
-            $tagData['slug'] = $tag->getSlug();
+            $newSlug = $this->processSlug($tag, $tag->getTitle());
+            $tagData['slug'] = $newSlug;
 
             $this->db->insert('tags', $tagData);
+            $tag->setSlug($newSlug);
         }
 
         return $this->findOneBySlug($tag->getSlug());

@@ -7,10 +7,10 @@
 
     <title>Dashboard</title>
 
-    <link href="/css/bootstrap.css" rel="stylesheet">
-    <link href="/css/dashboard.css" rel="stylesheet">
+    <link href="{{ app.request.basepath }}/css/bootstrap.css" rel="stylesheet">
+    <link href="{{ app.request.basepath }}/css/dashboard.css" rel="stylesheet">
     <link href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
-    <link href="/js/tagIt/css/jquery.tagit.css" rel="stylesheet" type="text/css">
+    <link href="{{ app.request.basepath }}/js/tag-it/css/jquery.tagit.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -38,7 +38,9 @@
     <div class="row">
         <div class="col-sm-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="{{ path('adminArticles') }}">Articles</a></li>
+                {% set currentRoute = app.request.attributes.get('_route') %}
+                <li {% if currentRoute == 'adminArticles' %}class="active"{% endif %}><a href="{{ path('adminArticles') }}">Articles</a></li>
+                <li {% if currentRoute == 'searchIndexes' %}class="active"{% endif %}><a href="{{ path('searchIndexes') }}">Search Indexes</a></li>
                 <li><a href="#">Comments</a></li>
             </ul>
         </div>
@@ -54,10 +56,10 @@
 {% block javascripts %}
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/holder.js"></script>
-    <script src="/js/ckEditor/ckeditor.js"></script>
-    <script src="/js/tagIt/js/tag-it.min.js"></script>
+    <script src="{{ app.request.basepath }}/js/bootstrap.min.js"></script>
+    <script src="{{ app.request.basepath }}/js/holder.js"></script>
+    <script src="{{ app.request.basepath }}/js/ckeditor/ckeditor.js"></script>
+    <script src="{{ app.request.basepath }}/js/tag-it/js/tag-it.min.js"></script>
 {% endblock %}
 
 </body>

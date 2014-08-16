@@ -1,5 +1,5 @@
 <div class="tags pull-right">
     {% for tag in tags %}
-        <span class="glyphicon glyphicon-tag"></span><a href="#"> {{ tag.title }}</a>
+        <span class="glyphicon glyphicon-tag"></span><a href="{{ path('showTag', {'slug': tag.slug}) }}"> {{ tag.title }}</a>
     {% endfor %}
 </div>

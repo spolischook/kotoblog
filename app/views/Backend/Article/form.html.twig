@@ -11,7 +11,7 @@
     {% endfor %}
     <a href="{{ path('showArticle', {'slug': form.vars.value.slug}) }}"  class="btn btn-info pull-right" target="_blank">View Article</a>
     <h1>{{ title }}</h1>
-    <form role="form" {{ form_enctype(form) }} method="post">
+    <form role="form" {{ form_enctype(form) }} method="post" id="article-form">
         <div class="form-group">
             {{ form_label(form.title) }}
             {{ form_errors(form.title) }}
@@ -37,7 +37,7 @@
             {{ form_errors(form.file) }}
             {{ form_widget(form.file) }}
             {% if form.vars.value.image|default('null') != 'null' %}
-                {{ image(form.vars.value.image, 'articleMainImage')|raw }}
+                {{ image(form.vars.value.image, 'articleMainImage') }}
             {% endif %}
         </div>
         {{ form_rest(form) }}
@@ -49,20 +49,22 @@
 {% endblock pagination %}
 {% block javascripts %}
     {{ parent() }}
-    <script>
-        CKEDITOR.replace( 'article_text', {
-            allowedContent: true,
-            filebrowserBrowseUrl : '/elfinder.html?v=4566',
-            extraPlugins: 'highlight_js,pbckcode,oembed',
-            toolbar: [
-                [ 'Source'],
-                [ 'Bold', 'Italic', 'Underline', 'StrikeThrough', '-', 'RemoveFormat' ],
-                [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'Justify' ],
-                [ 'Link', 'Unlink', 'Anchor', '-', 'Highlight', '-', 'pbckcode', '-', 'oembed' ],
-                [ 'Image', 'Table' ]
-            ]
-        });
-    </script>
+    {#<script>#}
+        {#CKEDITOR.replace( 'article_text', {#}
+            {#allowedContent: true,#}
+            {#filebrowserBrowseUrl : '/elfinder.html?v=4566',#}
+            {#extraPlugins: 'highlight_js,oembed,wpmore,ckimagepaste',#}
+            {#toolbar: [#}
+                {#[ 'Source'],#}
+                {#[ 'Bold', 'Italic', 'Underline', 'StrikeThrough', '-', 'RemoveFormat' ],#}
+                {#[ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'Justify' ],#}
+                {#[ 'Link', 'Unlink', 'Anchor', '-', 'Highlight', '-', 'oembed' ],#}
+                {#[ 'Image', 'Table' ],#}
+                {#[ 'WPMore' ]#}
+            {#],#}
+            {#height: '350px'#}
+        {#});#}
+    {#</script>#}
     <script type="text/javascript">
         $(document).ready(function() {
             $("#article_tags").tagit({

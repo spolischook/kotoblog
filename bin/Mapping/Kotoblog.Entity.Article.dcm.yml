@@ -18,6 +18,8 @@ Kotoblog\Entity\Article:
             type: string
         text:
             type: text
+        textSource:
+            type: text
         image:
             type: string
             nullable: true
@@ -29,3 +31,9 @@ Kotoblog\Entity\Article:
         createdAt:
             type: datetime
             column: created_at
+    manyToMany:
+        tags:
+            targetEntity: Tag
+            cascade: [persist]
+#            joinTable:
+#                name: tag_article

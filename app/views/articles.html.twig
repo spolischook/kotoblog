@@ -4,9 +4,10 @@
         <h6>
             <span class="glyphicon glyphicon-calendar"></span> {{ article.createdAt|date('d/m/Y') }} |
             <span class="glyphicon glyphicon-comment"></span>  <a href="#">0 коментариев</a>
+            {% include 'articleTags.html.twig' with {'tags': article.tags} %}
         </h6>
-        {{ article.text|raw }}
-        {% include 'articleTags.html.twig' with {'tags': article.tags} %}
+        {#{{ article.text|withoutMore|raw }}#}
+
     </article>
     <div class="clearfix"></div>
 {% endfor %}

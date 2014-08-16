@@ -37,8 +37,30 @@ class IndexController
         return $app['twig']->render('article.html.twig', array('article' => $article));
     }
 
+    public function tagAction(Request $request, Application $app, $slug)
+    {
+        $tag = $app['orm.em']->getRepository('Kotoblog\Entity\Tag')->findOneBySlug($slug);
+
+        return $app['twig']->render('tag.html.twig', array('tag' => $tag));
+    }
+
     public function aboutMeAction(Request $request, Application $app)
     {
         return $app['twig']->render('about-me.html.twig');
+    }
+
+    public function searchAction(Request $request, Application $app)
+    {
+        $query = $request->query->get('query', false);
+        $results = array();
+
+        if (false !== $query) {
+            if (mb_strlen($query, "UTF-8") > $app['search.minWordLength'])
+            {
+                $results = $app['repository.articleSearchindex']->search($query);
+            }
+        }
+
+        return $app['twig']->render('searchResults.html.twig', array('results' => $results));
     }
 }

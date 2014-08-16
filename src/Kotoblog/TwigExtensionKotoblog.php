@@ -2,20 +2,21 @@
 
 namespace Kotoblog;
 
+use Doctrine\ORM\EntityManager;
 use Kotoblog\ImageHandler;
-use Kotoblog\Repository\TagRepository;
 use Kotoblog\Entity\Tag;
 use Silex\Application;
 
 class TwigExtensionKotoblog extends \Twig_Extension
 {
-    protected $tagRepository;
+    /** @var \Doctrine\ORM\EntityManager  */
+    protected $em;
 
     private $environment;
 
-    public function __construct(TagRepository $tagRepository)
+    public function __construct(EntityManager $em)
     {
-        $this->tagRepository = $tagRepository;
+        $this->em = $em;
     }
 
     public function getFunctions()
@@ -26,20 +27,52 @@ class TwigExtensionKotoblog extends \Twig_Extension
         );
     }
 
+    public function getFilters()
+    {
+        return array(
+            new \Twig_SimpleFilter('withoutMore', array($this, 'withoutMore'), array('is_safe' => array('html')))
+        );
+    }
+
+    public function withoutMore($text)
+    {
+        if ( preg_match('/<!--more(.*?)?-->/', $text, $matches) ) {
+            list($main, $extended) = explode($matches[0], $text, 2);
+        } else {
+            $main = $text;
+            $extended = '';
+        }
+
+        // Strip leading and trailing whitespace
+        $main = preg_replace('/^[\s]*(.*)[\s]*$/', '\\1', $main);
+        $extended = preg_replace('/^[\s]*(.*)[\s]*$/', '\\1', $extended);
+
+        return $main;
+    }
+
     public function getImage($src, $filterName = 'raw')
     {
         $imageHandler = new ImageHandler();
+
+        if (file_exists(KOTOBLOG_PUBLIC_ROOT . $src)) {
+            return $this->renderHtmlImage(
+                $src,
+                $imageHandler->filters[$filterName]['width'],
+                $imageHandler->filters[$filterName]['height']
+            );
+        }
+
         $img = $imageHandler::make(KOTOBLOG_PUBLIC_ROOT . $src)->resize(
             $imageHandler->filters[$filterName]['width'],
             $imageHandler->filters[$filterName]['height']
         );
         $path = $imageHandler->saveImage($img, $src, $filterName);
 
-        return $this->environment->render('Twig/image.html.twig', array(
-            'path' => $path,
-            'width' => $imageHandler->filters[$filterName]['width'],
-            'height' => $imageHandler->filters[$filterName]['height'],
-        ));
+        return $this->renderHtmlImage(
+            $path,
+            $imageHandler->filters[$filterName]['width'],
+            $imageHandler->filters[$filterName]['height']
+        );
     }
 
     public function getTagCloud(array $parameters = array())
@@ -50,7 +83,7 @@ class TwigExtensionKotoblog extends \Twig_Extension
         );
         $tagCloudConfig = array_merge($defaultParameters, $parameters);
 
-        $tags = $this->tagRepository->findBy(
+        $tags = $this->em->getRepository('Kotoblog\Entity\Tag')->findBy(
             array(),
             array($tagCloudConfig['orderBy'] => $tagCloudConfig['order']),
             $tagCloudConfig['number']
@@ -101,5 +134,14 @@ class TwigExtensionKotoblog extends \Twig_Extension
     public function initRuntime(\Twig_Environment $environment)
     {
         $this->environment = $environment;
+    }
+
+    protected function renderHtmlImage($src, $width, $height)
+    {
+        return $this->environment->render('Twig/image.html.twig', array(
+            'path' => $src,
+            'width' => $width,
+            'height' => $height,
+        ));
     }
 }

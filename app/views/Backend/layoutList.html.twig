@@ -18,12 +18,14 @@
     {{ pageCounter }}
     {% block content %}{% endblock %}
     {{ pageCounter }}
-    {% block pagination %}
-        {{ render(url('adminPagination', {
-        'entry-count': entryCount,
-        'count': app.request.query.get('count'),
-        'page': app.request.query.get('page'),
-        'requestUrl': requestUrl,
-        })) }}
-    {% endblock %}
+    {% if entryCount is defined and entryCount != 0 %}
+        {% block pagination %}
+            {{ render(url('adminPagination', {
+            'entry-count': entryCount,
+            'count': app.request.query.get('count'),
+            'page': app.request.query.get('page'),
+            'requestUrl': requestUrl,
+            })) }}
+        {% endblock %}
+    {% endif %}
 {% endblock mainContent %}

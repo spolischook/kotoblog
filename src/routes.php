@@ -4,10 +4,15 @@ $app->get('/', 'Kotoblog\Controller\IndexController::indexAction')
     ->bind('homepage');
 $app->get('/about-me', 'Kotoblog\Controller\IndexController::aboutMeAction')
     ->bind('aboutMe');
+$app->get('/search', 'Kotoblog\Controller\IndexController::searchAction')
+    ->bind('search');
 $app->get('/articles', 'Kotoblog\Controller\IndexController::articlesAction')
     ->bind('articles');
 $app->get('/articles/{slug}', 'Kotoblog\Controller\IndexController::articleAction')
     ->bind('showArticle');
+
+$app->get('/tags/{slug}', 'Kotoblog\Controller\IndexController::tagAction')
+    ->bind('showTag');
 
 $app->get('/sidebar/articles/', 'Kotoblog\Controller\SidebarController::getArticlesAction')
     ->bind('sidebarArticles');
@@ -25,6 +30,9 @@ $app->get('/admin/articles', 'Kotoblog\Controller\BackendController::articlesAct
     ->bind('adminArticles');
 $app->match('/admin/articles/{slug}', 'Kotoblog\Controller\BackendController::editArticleAction')
     ->bind('adminArticle')
+    ->method('GET|POST');
+$app->match('/admin/search-indexes', 'Kotoblog\Controller\BackendController::searchIndexesAction')
+    ->bind('searchIndexes')
     ->method('GET|POST');
 
 $app->get('/admin/pagination', 'Kotoblog\Controller\BackendController::paginationAction')

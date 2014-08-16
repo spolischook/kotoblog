@@ -5,6 +5,8 @@ namespace Kotoblog\Controller;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
+use TextLanguageDetect\TextLanguageDetect;
+use TextLanguageDetect\LanguageDetect\TextLanguageDetectException;
 use Kotoblog\Form\ArticleType;
 
 class BackendController
@@ -19,7 +21,7 @@ class BackendController
         $perPage = $request->query->get('count', $app['pagination.per_page']);
         $page    = $request->query->get('page', 1);
 
-        $articles   = $app['repository.article']->findBy(array(), array('created_at' => 'DESC'), $perPage, ($page-1)*$perPage);
+        $articles   = $app['repository.article']->findBy(array('publish' => 'all'), array('created_at' => 'DESC'), $perPage, ($page-1)*$perPage);
         $entryCount = $app['repository.article']->getCount();
 
         return $app['twig']->render('Backend/Article/articles.html.twig', array(
@@ -30,11 +32,13 @@ class BackendController
 
     public function editArticleAction(Request $request, Application $app, $slug)
     {
-        $article = $app['repository.article']->findOneBy(array('slug' => $slug));
+        $article = $app['orm.em']->getRepository('Kotoblog\Entity\Article')->findOneBySlug($slug);
 
         if (!$article) {
             $app->abort(404, sprintf('The requested article with slug "%s" was not found.', $slug));
         }
+
+//        var_dump($app['github.client']->api('gists')->all()); exit;
 
         $form = $app['form.factory']->create($app['form_type.article'], $article);
 
@@ -42,7 +46,8 @@ class BackendController
             $form->bind($request);
 
             if ($form->isValid()) {
-                $article = $app['repository.article']->save($form->getData());
+                $app['orm.em']->flush();
+
                 $message = 'The article "' . $article->getTitle() . '" has been saved.';
                 $app['session']->getFlashBag()->add('success', $message);
 
@@ -76,6 +81,21 @@ class BackendController
             'perPage'    => $perPage,
             'page'       => $page,
             'requestUrl' => $requestUrl,
+        ));
+    }
+
+    public function searchIndexesAction(Request $request, Application $app)
+    {
+        if ($request->isMethod('POST')) {
+            $articles = $app['repository.article']->findAll();
+
+            foreach($articles as $article) {
+                $app['repository.articleSearchindex']->updateIndex($article);
+            }
+        }
+
+        return $app['twig']->render('Backend/SearchIndexes/index.html.twig', array(
+            'supportedLanguages' => $app['language_detector']->getLanguages()
         ));
     }
 }

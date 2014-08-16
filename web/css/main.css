@@ -32,3 +32,7 @@ body {
 .tag {
     line-height: 60%;
 }
+
+.img-responsive {
+    height: auto !important;
+}

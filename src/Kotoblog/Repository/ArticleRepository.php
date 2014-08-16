@@ -2,11 +2,18 @@
 
 namespace Kotoblog\Repository;
 
+use Doctrine\Common\EventArgs;
+use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Connection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Events;
 use Kotoblog\Entity\Article;
+use Kotoblog\Entity\ArticleSearchindex;
 use Kotoblog\Entity\Tag;
 use Kotoblog\Repository\TagRepository;
+use Kotoblog\Repository\SearchableInterface;
 
 class ArticleRepository extends AbstractRepository
 {
@@ -18,7 +25,7 @@ class ArticleRepository extends AbstractRepository
 
     public function __construct(Connection $db, TagRepository $tagRepository)
     {
-        $this->db = $db;
+        $this->db            = $db;
         $this->tagRepository = $tagRepository;
     }
 
@@ -40,10 +47,11 @@ class ArticleRepository extends AbstractRepository
         }
 
         if ($article->getId()) {
-            $slug = $this->updateSlugIfItNeeded($article);
-            $articleData['slug'] = $slug;
+            $newSlug = $this->updateSlugIfItNeeded($article);
+            $articleData['slug'] = $newSlug;
 
             $this->db->update('articles', $articleData, array('slug' => $article->getSlug()));
+            $article->setSlug($newSlug);
         } else {
             $this->processSlug($article, $article->getTitle());
             $articleData['slug'] = $article->getSlug();
@@ -59,7 +67,6 @@ class ArticleRepository extends AbstractRepository
         $id = $this->db->lastInsertId() ? $this->db->lastInsertId() : $article->getId();
 
         $this->handleTags($id, $article->getTags());
-//        var_dump($article->getTags()); exit;
 
         return $this->findOneBySlug($article->getSlug());
     }
@@ -104,6 +111,8 @@ class ArticleRepository extends AbstractRepository
 
         if (!isset($criteria['publish'])) {
             $criteria['publish'] = 1;
+        } elseif ('all' == $criteria['publish']) {
+            unset($criteria['publish']);
         }
 
         $queryBuilder = $this->db->createQueryBuilder();
@@ -226,11 +235,26 @@ class ArticleRepository extends AbstractRepository
     {
         $originalArticle = $this->findOneBySlug($article->getSlug());
 
-        if ($originalArticle->getTitle() != $article->getTitle()) {
-            $this->processSlug($article, $article->getTitle());
+        if (strtolower($originalArticle->getTitle()) != strtolower($article->getTitle())) {
+            $newSlug = $this->processSlug($article, $article->getTitle(), false);
+            if ($newSlug !== $originalArticle->getSlug()) {
+                return $newSlug;
+            }
         }
 
         return $article->getSlug();
+    }
+
+    public function getArticlesByTag($slug)
+    {
+        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder
+            ->select('t.*')
+            ->from('tag_article', 'ta')
+            ->where('t.slug = :slug')
+            ->innerJoin('ta', 'tags', 't', 't.tag_id = t.id')
+            ->setParameter(':slug', $slug)
+        ;
     }
 
     protected function getArticleTags($id)

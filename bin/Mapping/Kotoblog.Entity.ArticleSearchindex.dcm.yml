@@ -1,0 +1,18 @@
+Kotoblog\Entity\ArticleSearchindex:
+    type: entity
+    table: articles_searchindex
+    options:
+        engine: MyISAM
+    indexes:
+        article_index:
+            columns: [ article_id ]
+        word_index:
+            columns: [ word ]
+    id:
+        word:
+            type: string
+        article_id:
+            type: integer
+    fields:
+        weight:
+            type: integer

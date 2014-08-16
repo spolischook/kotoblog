@@ -25,7 +25,23 @@ abstract class AbstractRepository implements ObjectRepository
         return $this->findBy(array());
     }
 
-    protected function processSlug(SlugAbleInterface $object, $text)
+    public function findByTag($slug)
+    {
+        $orderBy = array('created_at' => 'DESC');
+        $criteria['publish'] = 1;
+
+        $queryBuilder = $this->db->createQueryBuilder();
+        $queryBuilder
+            ->select('a.*')
+            ->from('articles', 'a')
+            ->innerJoin('a.tag', 't')
+            ->where('')
+            ->setMaxResults(null)
+            ->setFirstResult(null)
+        ;
+    }
+
+    protected function processSlug(SlugAbleInterface $object, $text, $unique = true)
     {
         $slug = call_user_func_array(
             $this->transliterator,
@@ -40,9 +56,11 @@ abstract class AbstractRepository implements ObjectRepository
             $slug = strtolower($slug);
         }
 
-        $slug = $this->makeUniqueSlug($slug);
+        if (true === $unique) {
+            $slug = $this->makeUniqueSlug($slug);
+        }
 
-        $object->setSlug($slug);
+        return $slug;
     }
 
     private function makeUniqueSlug($slug, $index = 0)
@@ -105,5 +123,6 @@ abstract class AbstractRepository implements ObjectRepository
         }
     }
 
+    /** @deprecated */
     abstract protected function build($data);
 }

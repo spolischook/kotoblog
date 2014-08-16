@@ -1,0 +1,8 @@
+{% extends 'layout.html.twig' %}
+{% block maincolumn %}
+    {% if results is empty %}
+        <h1>Sorry! No Results for your query</h1>
+    {% else %}
+        {% include 'articles.html.twig' with {'articles': results} %}
+    {% endif %}
+{% endblock maincolumn %}

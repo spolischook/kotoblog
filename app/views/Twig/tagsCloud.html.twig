@@ -1,3 +1,3 @@
 {% for tag in tags %}
-    <a class="tag" href="#" style="font-size: {{ tag.weight }}{{ unit }};">{{ tag.title }}</a>
+    <a class="tag" href="{{ path('showTag', {'slug': tag.slug}) }}" style="font-size: {{ tag.weight }}{{ unit }};">{{ tag.title }}</a>
 {% endfor %}
