@@ -26,10 +26,12 @@ class ArticleType extends AbstractType
                 'attr' => array('class' => 'form-control'),
             ))
             ->add(
-                $builder->create('text', 'textarea', array(
-                'attr' => array(
-                    'class' => 'form-control', 'style' => 'height: 350px',
-                )))
+                $builder->create('textSource', 'textarea', array(
+                'attr' =>[
+                    'class' => 'form-control',
+                    'style' => 'height: 350px',
+                    'help'  => 'some help',
+                ]))
                 ->addModelTransformer($this->articleTextGistTransformer)
             )
             ->add(

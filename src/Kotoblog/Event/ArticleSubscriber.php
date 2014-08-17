@@ -3,23 +3,13 @@
 namespace Kotoblog\Event;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
-use Github\Client;
 use Kotoblog\Entity\Article;
-use Symfony\Component\DomCrawler\Crawler;
+use Kotoblog\Parsedown;
 
 class ArticleSubscriber implements EventSubscriber
 {
-    /** @var  Client */
-    protected $githubClient;
-
-    public function __construct(Client $client)
-    {
-        $this->githubClient = $client;
-    }
-
     /**
      * Returns an array of events this subscriber wants to listen to.
      *
@@ -35,7 +25,7 @@ class ArticleSubscriber implements EventSubscriber
         $entity = $event->getEntity();
 
         if ($entity instanceof Article) {
-            $this->updateGists($event->getEntityManager(), $entity);
+            $this->parseMarkdown($entity);
         }
     }
 
@@ -44,7 +34,7 @@ class ArticleSubscriber implements EventSubscriber
         $entity = $event->getEntity();
 
         if ($entity instanceof Article) {
-            $this->updateGists($event->getEntityManager(), $entity);
+            $this->parseMarkdown($entity);
         }
     }
 
@@ -53,20 +43,16 @@ class ArticleSubscriber implements EventSubscriber
         $entity = $event->getEntity();
 
         if ($entity instanceof Article) {
-            $this->updateGists($event->getEntityManager(), $entity);
+            // set cache
         }
     }
 
-    protected function updateGists(EntityManager $em, Article $article)
+    protected function parseMarkdown(Article $article)
     {
-        $crawler = new Crawler();
-        $crawler->addContent($article->getText());
+        $parsedown = new Parsedown();
+        $parsedown->setBreaksEnabled(true);
 
-        $crawler->filter('code')->each(function (Crawler $node, $i) {
-            var_dump($node->attr('class'));
-            var_dump($node->text());
-        });
-
-        exit;
+        $text = $parsedown->text($article->getTextSource());
+        $article->setText($text);
     }
 }

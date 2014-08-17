@@ -52,10 +52,10 @@ $app->register(new Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider
 ));
 
 //$app['article.subscriber'] = $app->share(function ($app) {
-//    return new \Kotoblog\Event\ArticleSubscriber($app['github.client']);
+//    return new \Kotoblog\Event\ArticleSubscriber($app['orm.em']);
 //});
-//
-//$app['db.event_manager']->addEventSubscriber($app['article.subscriber']);
+$app['db.event_manager']->addEventSubscriber(new \Kotoblog\Event\ArticleSubscriber());
+
 $app->register(new \Kotoblog\Provider\GitHubApiProvider(), [
     'github.username' => 'spolischook',
     'github.password' => 'dctktyyfz1985',

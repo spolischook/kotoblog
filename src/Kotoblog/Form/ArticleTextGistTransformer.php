@@ -13,13 +13,9 @@ class ArticleTextGistTransformer implements DataTransformerInterface
     /** @var \Github\Client */
     protected $githubClient;
 
-    /** @var  UrlGenerator */
-    protected $urlGenerator;
-
-    public function __construct(Client $githubClient, $urlGenerator)
+    public function __construct(Client $githubClient)
     {
         $this->githubClient = $githubClient;
-        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -58,8 +54,10 @@ class ArticleTextGistTransformer implements DataTransformerInterface
 
             $response = $transformer->githubClient->api('gist')->create($gist);
 
-            $embed = sprintf('<script src="%s.js"></script>', $response['html_url']);
+            $embed = sprintf('    %s', $response['html_url']);
             return $embed;
+
+//            return $response['html_url'];
         }, $value);
 
         return $result;
@@ -78,7 +76,7 @@ class ArticleTextGistTransformer implements DataTransformerInterface
             'language'    => $language,
             'filename'    => $filename,
             'public'      => array_key_exists('public', $attributes) ? $attributes['public'] : true,
-            'description' => $description . sprintf(' from %s', $this->urlGenerator->generate('showArticle')),
+            'description' => $description,
         );
 
         $files = array(

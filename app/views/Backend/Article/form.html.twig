@@ -18,9 +18,21 @@
             {{ form_widget(form.title) }}
         </div>
         <div class="form-group">
-            {{ form_label(form.text) }}
-            {{ form_errors(form.text) }}
-            {{ form_widget(form.text) }}
+            {{ form_label(form.textSource) }}
+            {{ form_errors(form.textSource) }}
+            {{ form_widget(form.textSource) }}
+            <span class="help">You can mark code blocks that will be insert into gist like: <br>
+                <code>
+                        &lt;code language=&quot;javascript&quot; filename=&quot;kotoblog_parse_annotation&quot; description=&quot;Parse some annotations&quot; public=&quot;false&quot;&gt;&lt;/code&gt;
+                </code>
+                The default values is:
+                <ul>
+                    <li>language: PHP</li>
+                    <li>filename: kotoblog+uniqId</li>
+                    <li>description: empty</li>
+                    <li>public: true</li>
+                </ul>
+            </span>
         </div>
         <div class="form-group">
             {{ form_label(form.tags) }}
