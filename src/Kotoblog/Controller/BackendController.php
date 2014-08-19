@@ -38,8 +38,6 @@ class BackendController
             $app->abort(404, sprintf('The requested article with slug "%s" was not found.', $slug));
         }
 
-//        var_dump($app['github.client']->api('gists')->all()); exit;
-
         $form = $app['form.factory']->create($app['form_type.article'], $article);
 
         if ($request->isMethod('POST')) {
@@ -57,7 +55,7 @@ class BackendController
 
         $data = array(
             'form' => $form->createView(),
-            'title' => 'Edit article ' . $article->getTitle(),
+            'title' => $article->getTitle(),
         );
 
 

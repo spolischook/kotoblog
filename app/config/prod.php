@@ -32,3 +32,8 @@ $app['cache.path'] = __DIR__ . '/../cache';
 
 // Twig cache
 $app['twig.options.cache'] = $app['cache.path'] . '/twig';
+
+foreach ($config['disqus'] as $property => $value) {
+    $app['disqus.' . $property] = $value;
+}
+

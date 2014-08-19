@@ -14,3 +14,4 @@ $config['db'] = array(
 );
 
 $config['pagination.per_page'] = 10;
+$config['disqus']['api_key'] = '';

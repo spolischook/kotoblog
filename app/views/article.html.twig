@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 {% block maincolumn %}
     <article>
-        <h3>{{ article.title }}</h3>
+        <h1>{{ article.title }}</h1>
         <h6><span class="glyphicon glyphicon-calendar"></span> {{ article.createdAt|date('d/m/Y') }}</h6>
         {% if article.image|default('null') != 'null' %}
             {{ image(article.image, 'articleMainImage')|raw }}
@@ -9,6 +9,7 @@
         {{ article.text|raw }}
         {% include 'articleTags.html.twig' with {'tags': article.tags} %}
     </article>
+    <h3 id="comments">Comments</h3>
     <div id="disqus_thread"></div>
     <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -22,6 +23,5 @@
         })();
     </script>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
 {% endblock maincolumn %}

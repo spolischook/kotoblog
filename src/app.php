@@ -56,6 +56,10 @@ $app->register(new Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider
 //});
 $app['db.event_manager']->addEventSubscriber(new \Kotoblog\Event\ArticleSubscriber());
 
+$app['disqus_api'] = $app->share(function($app) {
+    return new \Kotoblog\DisqusApi($app['disqus.api_key'], $app['orm.em'], $app['url_generator']);
+});
+
 $app->register(new \Kotoblog\Provider\GitHubApiProvider(), [
     'github.username' => 'spolischook',
     'github.password' => 'dctktyyfz1985',

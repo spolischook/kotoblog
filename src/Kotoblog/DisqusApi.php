@@ -3,7 +3,9 @@
 namespace Kotoblog;
 
 use Doctrine\ORM\EntityManager;
+use Guzzle\Http\Client;
 use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class DisqusApi
 {
@@ -46,23 +48,26 @@ class DisqusApi
     protected function updateThreadsCache()
     {
         $articles = $this->em->getRepository('Kotoblog\Entity\Article')->findAll();
-        $threads = array();
-        $parameters = ['api_key' => $this->apiKey];
 
         foreach ($articles as $article) {
-            $url = $this->urlGenerator->generate('showArticle', ['slug' => $article->getSlug()]);
-            $threads[] = 'link:'.$url;
+            $url = $this->urlGenerator->generate('showArticle', ['slug' => $article->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
+            $this->updateThreadCache($url);
         }
 
-        $parameters['thread'] = $threads;
 
-        $response = file_get_contents('https://disqus.com/api/3.0/threads/set.json?' . http_build_query($parameters));
-        $response = json_decode($response);
+    }
 
-        foreach ($response['response'] as $thread) {
-            $cacheKey = $this->getCacheKey(self::THREAD_CACHE_PREFIX, $thread['link']);
-            apc_add($cacheKey, $thread);
-        }
+    protected function updateThreadCache($url)
+    {
+        $client = new Client();
+
+        $request = $client->get(sprintf('https://disqus.com/api/3.0/threads/set.json?api_key=%s&thread=link:%s', $this->apiKey, $url));
+        $response = $request->send();
+
+        $arrayResponse = $response->json();
+
+        $cacheKey = $this->getCacheKey(self::THREAD_CACHE_PREFIX, $arrayResponse['response'][0]['link']);
+        apc_add($cacheKey, $arrayResponse['response'][0]);
     }
 
     protected function getCacheKey($prefix, $url)

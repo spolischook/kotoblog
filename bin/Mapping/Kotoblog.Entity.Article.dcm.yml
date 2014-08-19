@@ -35,5 +35,5 @@ Kotoblog\Entity\Article:
         tags:
             targetEntity: Tag
             cascade: [persist]
-#            joinTable:
-#                name: tag_article
+            joinTable:
+                name: tag_article

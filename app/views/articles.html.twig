@@ -2,8 +2,8 @@
     <article xmlns="http://www.w3.org/1999/html">
         <h3><a href="{{ path('showArticle', {'slug': article.slug}) }}">{{ article.title }}</a></h3>
         <h6>
-            <span class="glyphicon glyphicon-calendar"></span> {{ article.createdAt|date('d/m/Y') }} |
-            <span class="glyphicon glyphicon-comment"></span>  <a href="#">0 коментариев</a>
+            <span class="glyphicon glyphicon-calendar"></span>{{ article.createdAt|date('d/m/Y') }} |
+            <span class="glyphicon glyphicon-comment"></span><a href="{{ path('showArticle', {'slug': article.slug}) }}#comments">0 коментариев</a>
             {% include 'articleTags.html.twig' with {'tags': article.tags} %}
         </h6>
         {#{{ article.text|withoutMore|raw }}#}
