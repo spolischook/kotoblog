@@ -14,9 +14,12 @@ class TwigExtensionKotoblog extends \Twig_Extension
 
     private $environment;
 
-    public function __construct(EntityManager $em)
+    private $disqusApi;
+
+    public function __construct(EntityManager $em, DisqusApi $disqusApi)
     {
         $this->em = $em;
+        $this->disqusApi = $disqusApi;
     }
 
     public function getFunctions()
@@ -24,6 +27,7 @@ class TwigExtensionKotoblog extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('tagCloud', array($this, 'getTagCloud'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('image', array($this, 'getImage'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('commentsCount', array($this, 'getCommentsCount'), array('is_safe' => array('html'))),
         );
     }
 
@@ -32,6 +36,13 @@ class TwigExtensionKotoblog extends \Twig_Extension
         return array(
             new \Twig_SimpleFilter('withoutMore', array($this, 'withoutMore'), array('is_safe' => array('html')))
         );
+    }
+
+    public function getCommentsCount($url)
+    {
+        $thread = $this->disqusApi->getThread($url);
+
+        return is_array($thread) && array_key_exists('posts', $thread) ? $thread['posts'] : 0;
     }
 
     public function withoutMore($text)

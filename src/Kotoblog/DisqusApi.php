@@ -36,7 +36,7 @@ class DisqusApi
         $cacheKey = $this->getCacheKey(self::THREAD_CACHE_PREFIX, $url);
 
         if (false === apc_exists($cacheKey)) {
-            $this->updateThreadsCache();
+            $this->updateThreadCache($url);
         }
 
         return apc_fetch($cacheKey);
@@ -61,12 +61,22 @@ class DisqusApi
     {
         $client = new Client();
 
-        $request = $client->get(sprintf('https://disqus.com/api/3.0/threads/set.json?api_key=%s&thread=link:%s', $this->apiKey, $url));
-        $response = $request->send();
+        try {
+            $request = $client->get(sprintf('https://disqus.com/api/3.0/threads/set.json?api_key=%s&thread=link:%s', $this->apiKey, $url));
+            $response = $request->send();
+        } catch (\Exception $e) {
+            return false;
+        }
 
         $arrayResponse = $response->json();
+        $cacheKey = $this->getCacheKey(self::THREAD_CACHE_PREFIX, $url);
 
-        $cacheKey = $this->getCacheKey(self::THREAD_CACHE_PREFIX, $arrayResponse['response'][0]['link']);
+        if (!array_key_exists(0, $arrayResponse['response'])) {
+            apc_add($cacheKey, 0);
+            return;
+
+        }
+
         apc_add($cacheKey, $arrayResponse['response'][0]);
     }
 

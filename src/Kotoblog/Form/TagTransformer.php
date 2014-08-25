@@ -2,6 +2,7 @@
 
 namespace Kotoblog\Form;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Kotoblog\Entity\Tag;
@@ -9,12 +10,11 @@ use Kotoblog\Repository\TagRepository;
 
 class TagTransformer implements DataTransformerInterface
 {
-    /** @var TagRepository */
-    private $tagRepository;
+    protected $em;
 
-    public function __construct($tagRepository)
+    public function __construct(EntityManager $em)
     {
-        $this->tagRepository = $tagRepository;
+        $this->em = $em;
     }
 
     /**
@@ -37,12 +37,21 @@ class TagTransformer implements DataTransformerInterface
         }
 
         $tagsArray = explode (',', $tagsString);
-        $tagObjects = array();
+        $tagObjects = new ArrayCollection();
 
         foreach ($tagsArray as $tagTitle) {
-            $tagObjects[] = $this->tagRepository->findOneByTitleOrCreateNewIfNotExist(trim($tagTitle));
+            $tag = $this->em->getRepository('Kotoblog\Entity\Tag')->findOneByTitle($tagTitle);
+
+            if (!$tag) {
+                $tag = new Tag();
+                $tag->setTitle($tagTitle);
+
+                $this->em->persist($tag);
+            }
+
+            $tagObjects->add($tag);
         }
 
-        return new ArrayCollection($tagObjects);
+        return $tagObjects;
     }
 }

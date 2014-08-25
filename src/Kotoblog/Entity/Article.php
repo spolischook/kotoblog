@@ -205,6 +205,21 @@ class Article implements SlugAbleInterface, SortableInterface
 
     public function setTags($tags)
     {
+        $lowWeightTags = is_array($tags) ? array_diff($this->tags->toArray(), $tags) : $this->tags;
+
+        /** @var Tag $tag */
+        foreach ($lowWeightTags as $tag) {
+            $tag->decrementWeight();
+        }
+
+        if (is_array($tags)) {
+            $highWeightTags = array_diff($tags, $this->tags->toArray());
+
+            foreach ($highWeightTags as $tag) {
+                $tag->incrementWeight();
+            }
+        }
+
         $this->tags = $tags;
 
         return $this;
@@ -213,13 +228,13 @@ class Article implements SlugAbleInterface, SortableInterface
     /**
      * Add tags
      *
-     * @param \Kotoblog\Entity\Tag $tags
-     *
+     * @param \Kotoblog\Entity\Tag $tag
      * @return Article
      */
-    public function addTag(\Kotoblog\Entity\Tag $tags)
+    public function addTag(\Kotoblog\Entity\Tag $tag)
     {
-        $this->tags[] = $tags;
+        $this->tags[] = $tag;
+        $tag->incrementWeight();
 
         return $this;
     }
@@ -227,11 +242,15 @@ class Article implements SlugAbleInterface, SortableInterface
     /**
      * Remove tags
      *
-     * @param \Kotoblog\Entity\Tag $tags
+     * @param \Kotoblog\Entity\Tag $tag
+     * @return $this
      */
-    public function removeTag(\Kotoblog\Entity\Tag $tags)
+    public function removeTag(\Kotoblog\Entity\Tag $tag)
     {
-        $this->tags->removeElement($tags);
+        $this->tags->removeElement($tag);
+        $tag->decrementWeight();
+
+        return $this;
     }
 
     /**

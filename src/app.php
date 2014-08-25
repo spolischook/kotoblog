@@ -55,6 +55,7 @@ $app->register(new Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider
 //    return new \Kotoblog\Event\ArticleSubscriber($app['orm.em']);
 //});
 $app['db.event_manager']->addEventSubscriber(new \Kotoblog\Event\ArticleSubscriber());
+$app['db.event_manager']->addEventSubscriber(new \Gedmo\Sluggable\SluggableListener());
 
 $app['disqus_api'] = $app->share(function($app) {
     return new \Kotoblog\DisqusApi($app['disqus.api_key'], $app['orm.em'], $app['url_generator']);
@@ -76,7 +77,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
     $twig->addFunction('allTags', new \Twig_SimpleFunction('allTags', function() use ($app) {
-        $tags = $app['repository.tag']->findAll();
+        $tags = $app['orm.em']->getRepository('Kotoblog\Entity\Tag')->findAll();
 
         $tagsString = '';
         foreach ($tags as $tag) {
@@ -89,14 +90,6 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
     return $twig;
 }));
 
-$app['repository.tag'] = $app->share(function ($app) {
-    return new Kotoblog\Repository\TagRepository($app['db']);
-});
-
-$app['repository.article'] = $app->share(function ($app) {
-    return new Kotoblog\Repository\ArticleRepository($app['db'], $app['repository.tag']);
-});
-
 $app['repository.articleSearchindex'] = $app->share(function ($app) {
     return new Kotoblog\Repository\ArticleSearchindexRepository(
         $app['db'],
@@ -108,7 +101,7 @@ $app['repository.articleSearchindex'] = $app->share(function ($app) {
 });
 
 $app['data_transformer.tag'] = $app->share(function ($app) {
-    return new \Kotoblog\Form\TagTransformer($app['repository.tag']);
+    return new \Kotoblog\Form\TagTransformer($app['orm.em']);
 });
 
 $app['data_transformer.article_text'] = $app->share(function ($app) {
@@ -120,7 +113,7 @@ $app['form_type.article'] = $app->share(function ($app) {
 });
 
 $app['twig_extension.kotoblog'] = $app->share(function ($app) {
-    return new Kotoblog\TwigExtensionKotoblog($app['orm.em']);
+    return new Kotoblog\TwigExtensionKotoblog($app['orm.em'], $app['disqus_api']);
 });
 
 $app['text_helper'] = $app->share(function ($app) {

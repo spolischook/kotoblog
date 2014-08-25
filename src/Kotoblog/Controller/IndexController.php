@@ -11,9 +11,9 @@ class IndexController
     public function indexAction(Request $request, Application $app)
     {
         $perPage  = $request->query->get('count', $app['pagination.per_page']);
-        $articles = $app['repository.article']->findBy(array(), array('created_at' => 'DESC'), $perPage);
+        $articles = $app['orm.em']->getRepository('Kotoblog\Entity\Article')->findBy([], ['createdAt' => 'DESC'], $perPage);
 
-        return $app['twig']->render('index.html.twig', array('articles' => $articles));
+        return $app['twig']->render('index.html.twig', ['articles' => $articles]);
     }
 
     public function articlesAction(Request $request, Application $app)
@@ -21,7 +21,7 @@ class IndexController
         $perPage = $request->query->get('count', $app['pagination.per_page']);
         $page    = $request->query->get('page', 1);
 
-        $articles = $app['repository.article']->findBy(array(), array('created_at' => 'DESC'), $perPage, ($page-1)*$perPage);
+        $articles = $app['orm.em']->getRepository('Kotoblog\Entity\Article')->findBy(array(), array('createdAt' => 'DESC'), $perPage, ($page-1)*$perPage);
 
         if (!count($articles)) {
             return new Response("No articles founded", 404);
@@ -32,7 +32,7 @@ class IndexController
 
     public function articleAction(Request $request, Application $app, $slug)
     {
-        $article = $app['repository.article']->findOneBySlug($slug);
+        $article = $app['orm.em']->getRepository('Kotoblog\Entity\Article')->findOneBySlug($slug);
 
         return $app['twig']->render('article.html.twig', array('article' => $article));
     }

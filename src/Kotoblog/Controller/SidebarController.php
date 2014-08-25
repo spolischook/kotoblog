@@ -15,10 +15,10 @@ class SidebarController
 
         switch ($type) {
             case Article::LATEST:
-                $articles = $app['repository.article']->findBy(array(), array('created_at' => 'DESC'), $count);
+                $articles = $app['orm.em']->getRepository('Kotoblog\Entity\Article')->findBy(array(), array('createdAt' => 'DESC'), $count);
                 break;
             case Article::POPULAR:
-                $articles = $app['repository.article']->findBy(array(), array('weight' => 'DESC'), $count);
+                $articles = $app['orm.em']->getRepository('Kotoblog\Entity\Article')->findBy(array(), array('weight' => 'DESC'), $count);
                 break;
         }
 

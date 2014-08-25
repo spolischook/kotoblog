@@ -131,6 +131,16 @@ class Tag implements SlugAbleInterface
         return $this->weight;
     }
 
+    public function incrementWeight()
+    {
+        $this->weight = $this->weight + 1;
+    }
+
+    public function decrementWeight()
+    {
+        $this->weight = $this->weight - 1;
+    }
+
     /**
      * Add articles
      *

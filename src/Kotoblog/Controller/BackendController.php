@@ -21,8 +21,8 @@ class BackendController
         $perPage = $request->query->get('count', $app['pagination.per_page']);
         $page    = $request->query->get('page', 1);
 
-        $articles   = $app['repository.article']->findBy(array('publish' => 'all'), array('created_at' => 'DESC'), $perPage, ($page-1)*$perPage);
-        $entryCount = $app['repository.article']->getCount();
+        $articles = $app['orm.em']->getRepository('Kotoblog\Entity\Article')->findBy([], ['createdAt' => 'DESC'], $perPage, ($page-1)*$perPage);
+        $entryCount = count($app['orm.em']->getRepository('Kotoblog\Entity\Article')->findAll());
 
         return $app['twig']->render('Backend/Article/articles.html.twig', array(
             'articles'   => $articles,
@@ -85,7 +85,7 @@ class BackendController
     public function searchIndexesAction(Request $request, Application $app)
     {
         if ($request->isMethod('POST')) {
-            $articles = $app['repository.article']->findAll();
+            $articles = $app['orm.em']->getRepository('Kotoblog\Entity\Article')->findAll();
 
             foreach($articles as $article) {
                 $app['repository.articleSearchindex']->updateIndex($article);

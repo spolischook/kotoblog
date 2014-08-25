@@ -17,7 +17,7 @@ class ArticleSubscriber implements EventSubscriber
      */
     public function getSubscribedEvents()
     {
-        return array(Events::prePersist, Events::preUpdate, Events::postLoad);
+        return array(Events::prePersist, Events::preUpdate, Events::postPersist, Events::postUpdate);
     }
 
     public function preUpdate(LifecycleEventArgs $event)
@@ -38,13 +38,18 @@ class ArticleSubscriber implements EventSubscriber
         }
     }
 
-    public function postLoad(LifecycleEventArgs $event)
+    public function postPersist(LifecycleEventArgs $event)
     {
         $entity = $event->getEntity();
 
         if ($entity instanceof Article) {
             // set cache
         }
+    }
+
+    public function postUpdate(LifecycleEventArgs $event)
+    {
+
     }
 
     protected function parseMarkdown(Article $article)
@@ -54,5 +59,10 @@ class ArticleSubscriber implements EventSubscriber
 
         $text = $parsedown->text($article->getTextSource());
         $article->setText($text);
+    }
+
+    protected function updateWeightTags()
+    {
+
     }
 }
