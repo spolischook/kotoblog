@@ -153,8 +153,8 @@ $app['language_detector'] = $app->share(function ($app) {
 foreach ($app['search.languages'] as $language) {
     $languageConfig = $app['search.available_languages'][$language];
     $app['morphology_provider.'.$language] = $app->share(function ($app) use ($languageConfig) {
-        require_once( '/var/www/kotoblog/vendor/phpMorphy/phpMorphy/src/common.php');
-        $dir = '/var/www/kotoblog/vendor/phpMorphy/phpMorphy/dicts';
+        require_once( __DIR__ . '/../vendor/phpMorphy/phpMorphy/src/common.php');
+        $dir = __DIR__ . '/../vendor/phpMorphy/phpMorphy/dicts';
         $lang = $languageConfig['unix'];
 
         try {
