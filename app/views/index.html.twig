@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 {% block maincolumn %}
-    {% include 'articles.html.twig' with {'articles': articles} %}
+    {{ render(url('articles')) }}
 {% endblock maincolumn %}
 {% block javascripts %}
     {{ parent() }}

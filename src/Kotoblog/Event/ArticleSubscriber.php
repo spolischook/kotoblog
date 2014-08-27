@@ -5,11 +5,20 @@ namespace Kotoblog\Event;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
+use Kotoblog\CacheUpdater;
 use Kotoblog\Entity\Article;
 use Kotoblog\Parsedown;
 
 class ArticleSubscriber implements EventSubscriber
 {
+    /** @var  CacheUpdater */
+    protected $cacheUpdater;
+
+    public function __construct(CacheUpdater $cacheUpdater)
+    {
+        $this->cacheUpdater = $cacheUpdater;
+    }
+
     /**
      * Returns an array of events this subscriber wants to listen to.
      *
@@ -49,7 +58,12 @@ class ArticleSubscriber implements EventSubscriber
 
     public function postUpdate(LifecycleEventArgs $event)
     {
+        $entity = $event->getEntity();
 
+        if ($entity instanceof Article) {
+            $this->cacheUpdater->updateArticleCache($entity);
+            $this->cacheUpdater->removeTagCache();
+        }
     }
 
     protected function parseMarkdown(Article $article)
@@ -59,10 +73,5 @@ class ArticleSubscriber implements EventSubscriber
 
         $text = $parsedown->text($article->getTextSource());
         $article->setText($text);
-    }
-
-    protected function updateWeightTags()
-    {
-
     }
 }

@@ -2,29 +2,21 @@
 
 namespace Kotoblog;
 
-use Doctrine\ORM\EntityManager;
 use Guzzle\Http\Client;
-use Symfony\Component\Routing\Generator\UrlGenerator;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Doctrine\Common\Cache\CacheProvider;
 
 class DisqusApi
 {
-    const THREAD_CACHE_PREFIX = 'thread_';
-
     /** @var  string */
     protected $apiKey;
 
-    /** @var \Doctrine\ORM\EntityManager */
-    protected $em;
+    /** @var  CacheProvider */
+    protected $cache;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGenerator */
-    protected $urlGenerator;
-
-    public function __construct($apiKey, EntityManager $em, UrlGenerator $urlGenerator)
+    public function __construct($apiKey, CacheProvider $cache)
     {
         $this->apiKey       = $apiKey;
-        $this->em           = $em;
-        $this->urlGenerator = $urlGenerator;
+        $this->cache        = $cache;
     }
 
     /**
@@ -33,32 +25,19 @@ class DisqusApi
      */
     public function getThread($url)
     {
-        $cacheKey = $this->getCacheKey(self::THREAD_CACHE_PREFIX, $url);
+        $this->cache->setNamespace(CacheInterface::THREAD_CACHE_NAMESPACE);
+        $cacheKey = $this->getCacheKey($url);
 
-        if (false === apc_exists($cacheKey)) {
-            $this->updateThreadCache($url);
-        }
+//        if (false === $this->cache->contains($cacheKey)) {
+//            $this->updateThreadCache($url);
+//        }
 
-        return apc_fetch($cacheKey);
+        return $this->cache->fetch($cacheKey);
     }
 
-    /**
-     * @return void
-     */
-    protected function updateThreadsCache()
+    public function updateThreadCache($url)
     {
-        $articles = $this->em->getRepository('Kotoblog\Entity\Article')->findAll();
-
-        foreach ($articles as $article) {
-            $url = $this->urlGenerator->generate('showArticle', ['slug' => $article->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
-            $this->updateThreadCache($url);
-        }
-
-
-    }
-
-    protected function updateThreadCache($url)
-    {
+        $this->cache->setNamespace(CacheInterface::THREAD_CACHE_NAMESPACE);
         $client = new Client();
 
         try {
@@ -69,19 +48,19 @@ class DisqusApi
         }
 
         $arrayResponse = $response->json();
-        $cacheKey = $this->getCacheKey(self::THREAD_CACHE_PREFIX, $url);
+        $cacheKey = $this->getCacheKey($url);
 
         if (!array_key_exists(0, $arrayResponse['response'])) {
-            apc_add($cacheKey, 0);
+            $this->cache->save($cacheKey, 0);
             return;
 
         }
 
-        apc_add($cacheKey, $arrayResponse['response'][0]);
+        $this->cache->save($cacheKey, $arrayResponse['response'][0]);
     }
 
-    protected function getCacheKey($prefix, $url)
+    protected function getCacheKey($url)
     {
-        return $prefix . md5($url);
+        return $url;
     }
 }

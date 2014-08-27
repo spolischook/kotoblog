@@ -6,20 +6,30 @@ use Doctrine\ORM\EntityManager;
 use Kotoblog\ImageHandler;
 use Kotoblog\Entity\Tag;
 use Silex\Application;
+use Doctrine\Common\Cache\CacheProvider;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 class TwigExtensionKotoblog extends \Twig_Extension
 {
+    const TAG_CLOUD_CACHE_KEY = 'html_cloud';
+    const TAG_CLOUD_CACHE_NAMESPACE = 'tag_cloud_';
+
     /** @var \Doctrine\ORM\EntityManager  */
     protected $em;
 
     private $environment;
 
+    /** @var DisqusApi */
     private $disqusApi;
 
-    public function __construct(EntityManager $em, DisqusApi $disqusApi)
+    /** @var  CacheProvider */
+    protected $cache;
+
+    public function __construct(EntityManager $em, DisqusApi $disqusApi, CacheProvider $cache)
     {
         $this->em = $em;
         $this->disqusApi = $disqusApi;
+        $this->cache = $cache;
     }
 
     public function getFunctions()
@@ -88,6 +98,12 @@ class TwigExtensionKotoblog extends \Twig_Extension
 
     public function getTagCloud(array $parameters = array())
     {
+        $this->cache->setNamespace(self::TAG_CLOUD_CACHE_NAMESPACE);
+
+        if ($this->cache->contains(self::TAG_CLOUD_CACHE_KEY)) {
+            return $this->cache->fetch(self::TAG_CLOUD_CACHE_KEY);
+        }
+
         $defaultParameters = array(
             'smallest' => 8, 'largest' => 22, 'unit' => 'pt', 'number' => 45,
             'orderBy' => 'title', 'order' => 'ASC',
@@ -126,10 +142,12 @@ class TwigExtensionKotoblog extends \Twig_Extension
             $tagWeight = $tagWeight + $ratio;
         }
 
-        return $this->environment->render('Twig/tagsCloud.html.twig', array(
+        $this->cache->save(self::TAG_CLOUD_CACHE_KEY, $this->environment->render('Twig/tagsCloud.html.twig', array(
             'tags' => $tags,
             'unit' => $tagCloudConfig['unit'],
-        ));
+        )));
+
+        return $this->cache->fetch(self::TAG_CLOUD_CACHE_KEY);
     }
 
     /**

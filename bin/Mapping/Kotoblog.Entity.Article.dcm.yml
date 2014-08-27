@@ -35,5 +35,6 @@ Kotoblog\Entity\Article:
         tags:
             targetEntity: Tag
             cascade: [persist]
+            fetch: EAGER
             joinTable:
                 name: tag_article

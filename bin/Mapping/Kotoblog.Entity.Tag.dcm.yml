@@ -21,4 +21,5 @@ Kotoblog\Entity\Tag:
             nullable: true
     manyToMany:
         articles:
-          targetEntity: Article
+            fetch: EAGER
+            targetEntity: Article

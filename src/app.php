@@ -27,14 +27,21 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.role_hierarchy' => array(
         'ROLE_ADMIN' => array('ROLE_USER'),
     ),
+    'security.access_rules' => array(
+        array('^/admin', 'ROLE_ADMIN'),
+    ),
 ));
-$app['security.access_rules'] = array(
-    array('^/admin', 'ROLE_ADMIN'),
-    array('^/', 'ROLE_USER'),
-);
+
+$app['disqus_api'] = $app->share(function($app) {
+    return new \Kotoblog\DisqusApi($app['disqus.api_key'], $app['cache']);
+});
+
+$app['cache_updater'] = $app->share(function ($app) {
+    return new \Kotoblog\CacheUpdater($app['cache']);
+});
 
 $app->register(new Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider, array(
-    "orm.proxies_dir" => __DIR__ . "/app/proxies",
+    "orm.proxies_dir" => __DIR__ . "/../app/proxies",
     "orm.em.options" => array(
         "mappings" => array(
 //            array(
@@ -51,15 +58,13 @@ $app->register(new Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider
     ),
 ));
 
-//$app['article.subscriber'] = $app->share(function ($app) {
-//    return new \Kotoblog\Event\ArticleSubscriber($app['orm.em']);
-//});
-$app['db.event_manager']->addEventSubscriber(new \Kotoblog\Event\ArticleSubscriber());
-$app['db.event_manager']->addEventSubscriber(new \Gedmo\Sluggable\SluggableListener());
+$app->register(new \CHH\Silex\CacheServiceProvider);
 
-$app['disqus_api'] = $app->share(function($app) {
-    return new \Kotoblog\DisqusApi($app['disqus.api_key'], $app['orm.em'], $app['url_generator']);
+$app['article.subscriber'] = $app->share(function ($app) {
+    return new \Kotoblog\Event\ArticleSubscriber($app['cache_updater']);
 });
+$app['db.event_manager']->addEventSubscriber($app['article.subscriber']);
+$app['db.event_manager']->addEventSubscriber(new \Gedmo\Sluggable\SluggableListener());
 
 $app->register(new \Kotoblog\Provider\GitHubApiProvider(), [
     'github.username' => 'spolischook',
@@ -92,8 +97,8 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
 
 $app['repository.articleSearchindex'] = $app->share(function ($app) {
     return new Kotoblog\Repository\ArticleSearchindexRepository(
-        $app['db'],
-        $app['repository.article'],
+        $app['orm.em'],
+        $app['cache'],
         $app['text_helper'],
         $app['search.weight'],
         $app['search.minWordLength']
@@ -113,7 +118,7 @@ $app['form_type.article'] = $app->share(function ($app) {
 });
 
 $app['twig_extension.kotoblog'] = $app->share(function ($app) {
-    return new Kotoblog\TwigExtensionKotoblog($app['orm.em'], $app['disqus_api']);
+    return new Kotoblog\TwigExtensionKotoblog($app['orm.em'], $app['disqus_api'], $app['cache']);
 });
 
 $app['text_helper'] = $app->share(function ($app) {

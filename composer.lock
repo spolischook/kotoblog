@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fb2f35c2d4c6d9480478c4ed00ef3c1a",
+    "hash": "1a0088d701872900dc7b6879c99a6511",
     "packages": [
         {
             "name": "Studio-42/elFinder",
@@ -27,6 +27,58 @@
                 "shasum": null
             },
             "type": "library"
+        },
+        {
+            "name": "chh/cache-service-provider",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CHH/cache-service-provider.git",
+                "reference": "6ad4ffb819d6523c5956cd2676e8bba8b6ad0522"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CHH/cache-service-provider/zipball/6ad4ffb819d6523c5956cd2676e8bba8b6ad0522",
+                "reference": "6ad4ffb819d6523c5956cd2676e8bba8b6ad0522",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/cache": "~1.0",
+                "php": ">=5.3.3",
+                "silex/silex": "~1.0"
+            },
+            "require-dev": {
+                "chh/bob": "1.0.*@dev",
+                "phpunit/phpunit": "~3.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "CHH\\Silex\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christoph Hochstrasser",
+                    "email": "christoph.hochstrasser@gmail.com",
+                    "homepage": "http://christophh.net"
+                }
+            ],
+            "description": "Provides easy to use caching for Silex applications, built on top of the doctrine/cache package",
+            "keywords": [
+                "cache",
+                "silex"
+            ],
+            "time": "2013-07-05 05:47:42"
         },
         {
             "name": "ckeditor/PBCKCode",
@@ -443,12 +495,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "83f92c3f28e927917ddcb7cf214ce99c0b72004b"
+                "reference": "1c9c24a7e2295b71249ae2a719ce38861fccd551"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/83f92c3f28e927917ddcb7cf214ce99c0b72004b",
-                "reference": "83f92c3f28e927917ddcb7cf214ce99c0b72004b",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/1c9c24a7e2295b71249ae2a719ce38861fccd551",
+                "reference": "1c9c24a7e2295b71249ae2a719ce38861fccd551",
                 "shasum": ""
             },
             "require": {
@@ -506,7 +558,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2014-08-13 07:14:49"
+            "time": "2014-08-24 01:25:05"
         },
         {
             "name": "doctrine/inflector",
@@ -643,12 +695,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "5ff67c92ee869841e71d5783f035eee36c85047f"
+                "reference": "65f8357b46cf247405ca4bb5bf348e0ffc67854b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/5ff67c92ee869841e71d5783f035eee36c85047f",
-                "reference": "5ff67c92ee869841e71d5783f035eee36c85047f",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/65f8357b46cf247405ca4bb5bf348e0ffc67854b",
+                "reference": "65f8357b46cf247405ca4bb5bf348e0ffc67854b",
                 "shasum": ""
             },
             "require": {
@@ -709,7 +761,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2014-08-15 14:13:33"
+            "time": "2014-08-22 12:00:20"
         },
         {
             "name": "erusev/parsedown",
@@ -838,12 +890,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle3.git",
-                "reference": "4b4a8ff3ae2998227f856800b3c0879883474614"
+                "reference": "4c1b96a39933e0a4433337da874764b817bf2822"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle3/zipball/4b4a8ff3ae2998227f856800b3c0879883474614",
-                "reference": "4b4a8ff3ae2998227f856800b3c0879883474614",
+                "url": "https://api.github.com/repos/guzzle/guzzle3/zipball/4c1b96a39933e0a4433337da874764b817bf2822",
+                "reference": "4c1b96a39933e0a4433337da874764b817bf2822",
                 "shasum": ""
             },
             "require": {
@@ -922,7 +974,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-08-13 08:01:25"
+            "time": "2014-08-22 21:56:27"
         },
         {
             "name": "intervention/image",
@@ -930,12 +982,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "2fb5e286e4210cd55151e8e8d2ce0ac2bd20fec2"
+                "reference": "28f156432e774b31a53c5fe08d164edd111f9482"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/2fb5e286e4210cd55151e8e8d2ce0ac2bd20fec2",
-                "reference": "2fb5e286e4210cd55151e8e8d2ce0ac2bd20fec2",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/28f156432e774b31a53c5fe08d164edd111f9482",
+                "reference": "28f156432e774b31a53c5fe08d164edd111f9482",
                 "shasum": ""
             },
             "require": {
@@ -978,7 +1030,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2014-08-06 18:37:17"
+            "time": "2014-08-23 15:47:12"
         },
         {
             "name": "isagalaev/highlight",
@@ -997,12 +1049,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/php-github-api.git",
-                "reference": "4c5fe7759efb2ebd54d439ace62715ff5532a637"
+                "reference": "414457e4887dc1ae231a9d50919c948095d33d84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/php-github-api/zipball/4c5fe7759efb2ebd54d439ace62715ff5532a637",
-                "reference": "4c5fe7759efb2ebd54d439ace62715ff5532a637",
+                "url": "https://api.github.com/repos/KnpLabs/php-github-api/zipball/414457e4887dc1ae231a9d50919c948095d33d84",
+                "reference": "414457e4887dc1ae231a9d50919c948095d33d84",
                 "shasum": ""
             },
             "require": {
@@ -1050,7 +1102,7 @@
                 "gist",
                 "github"
             ],
-            "time": "2014-08-16 00:32:22"
+            "time": "2014-08-21 20:10:02"
         },
         {
             "name": "phpMorphy/deDictionary",
@@ -1677,12 +1729,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "2fcb28a7117e77b07a62e266ae82707513619b70"
+                "reference": "66996cff6d0de1168f99e460464cd3fb35c192f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/2fcb28a7117e77b07a62e266ae82707513619b70",
-                "reference": "2fcb28a7117e77b07a62e266ae82707513619b70",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/66996cff6d0de1168f99e460464cd3fb35c192f5",
+                "reference": "66996cff6d0de1168f99e460464cd3fb35c192f5",
                 "shasum": ""
             },
             "require": {
@@ -1721,7 +1773,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-08-14 16:10:54"
+            "time": "2014-08-18 09:01:49"
         },
         {
             "name": "symfony/http-kernel",
@@ -2172,6 +2224,53 @@
             "time": "2014-08-14 14:56:25"
         },
         {
+            "name": "symfony/stopwatch",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/Stopwatch",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Stopwatch.git",
+                "reference": "1514a74517c22a6bbc632bab8755199151af3d63"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Stopwatch/zipball/1514a74517c22a6bbc632bab8755199151af3d63",
+                "reference": "1514a74517c22a6bbc632bab8755199151af3d63",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Stopwatch\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony Stopwatch Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-08-14 16:37:29"
+        },
+        {
             "name": "symfony/translation",
             "version": "dev-master",
             "target-dir": "Symfony/Component/Translation",
@@ -2304,12 +2403,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Validator.git",
-                "reference": "e3c01ada1109e11026e50ea2b5b181bd32bde514"
+                "reference": "853f5ad083e1ba2815ff3b38bf4a3e86713a1aff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Validator/zipball/e3c01ada1109e11026e50ea2b5b181bd32bde514",
-                "reference": "e3c01ada1109e11026e50ea2b5b181bd32bde514",
+                "url": "https://api.github.com/repos/symfony/Validator/zipball/853f5ad083e1ba2815ff3b38bf4a3e86713a1aff",
+                "reference": "853f5ad083e1ba2815ff3b38bf4a3e86713a1aff",
                 "shasum": ""
             },
             "require": {
@@ -2360,7 +2459,7 @@
             ],
             "description": "Symfony Validator Component",
             "homepage": "http://symfony.com",
-            "time": "2014-08-14 14:56:25"
+            "time": "2014-08-19 08:55:40"
         },
         {
             "name": "twig/twig",
@@ -2651,6 +2750,7 @@
         "phpmorphy/dedictionary": 20,
         "phpmorphy/ukdictionary": 20,
         "webmil/text-language-detect": 20,
+        "symfony/stopwatch": 20,
         "symfony/filesystem": 20,
         "symfony/yaml": 20
     },

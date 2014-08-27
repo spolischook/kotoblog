@@ -6,12 +6,12 @@ $app->get('/about-me', 'Kotoblog\Controller\IndexController::aboutMeAction')
     ->bind('aboutMe');
 $app->get('/search', 'Kotoblog\Controller\IndexController::searchAction')
     ->bind('search');
-$app->get('/articles', 'Kotoblog\Controller\IndexController::articlesAction')
+$app->get('/articles', 'Kotoblog\Controller\ArticleController::articlesAction')
     ->bind('articles');
-$app->get('/articles/{slug}', 'Kotoblog\Controller\IndexController::articleAction')
+$app->get('/articles/{slug}', 'Kotoblog\Controller\ArticleController::articleAction')
     ->bind('showArticle');
 
-$app->get('/tags/{slug}', 'Kotoblog\Controller\IndexController::tagAction')
+$app->get('/tags/{slug}', 'Kotoblog\Controller\TagController::tagAction')
     ->bind('showTag');
 
 $app->get('/sidebar/articles/', 'Kotoblog\Controller\SidebarController::getArticlesAction')

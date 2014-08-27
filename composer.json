@@ -184,7 +184,9 @@
         "phpMorphy/enDictionary": "dev-master",
         "phpMorphy/deDictionary": "dev-master",
         "phpMorphy/ukDictionary": "dev-master",
-        "webmil/text-language-detect": "dev-master"
+        "webmil/text-language-detect": "dev-master",
+        "chh/cache-service-provider": "~1.0",
+        "symfony/stopwatch": "2.6.*@dev"
     },
     "minimum-stability": "dev",
     "require-dev": {
