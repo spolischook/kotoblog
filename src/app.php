@@ -4,7 +4,12 @@ $app->register(new Silex\Provider\DoctrineServiceProvider());
 $app->register(new Silex\Provider\FormServiceProvider());
 $app->register(new Silex\Provider\SessionServiceProvider());
 $app->register(new Silex\Provider\ValidatorServiceProvider());
-$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+//$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+$app['url_generator'] = $app->share(function ($app) {
+    $app->flush();
+
+    return new Kotoblog\KotoblogUrlGenerator($app['routes'], $app['request_context']);
+});
 $app->register(new Silex\Provider\TranslationServiceProvider());
 
 $app['loginCheckRoute'] = '/admin/login_check';
@@ -65,6 +70,27 @@ $app['article.subscriber'] = $app->share(function ($app) {
 });
 $app['db.event_manager']->addEventSubscriber($app['article.subscriber']);
 $app['db.event_manager']->addEventSubscriber(new \Gedmo\Sluggable\SluggableListener());
+
+//UrlReplacer
+$app->before(function (\Kotoblog\Request $request) use ($app) {
+    $urlMap      = \Kotoblog\UrlReplacer::$urlMap;
+    $urlRedirect = \Kotoblog\UrlReplacer::$urlRedirect;
+    $path        = $request->getPathInfo();
+
+    if (array_key_exists($path, $urlRedirect)) {
+        return new \Symfony\Component\HttpFoundation\RedirectResponse($urlRedirect[$path], 301);
+    }
+
+    if (array_key_exists($path, $urlMap)) {
+        return new \Symfony\Component\HttpFoundation\RedirectResponse($urlMap[$path], 301);
+    }
+
+    $urlReverseMap = array_flip($urlMap);
+    if (array_key_exists($path, $urlReverseMap)) {
+        $request->setPathInfo($urlReverseMap[$path]);
+    }
+}, \Silex\Application::EARLY_EVENT);
+
 
 $app->register(new \Kotoblog\Provider\GitHubApiProvider(), [
     'github.username' => 'spolischook',

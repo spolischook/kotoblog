@@ -22,4 +22,5 @@ $app->error(function (\Exception $e, $code) use ($app) {
     return $app['twig']->render('error.html.twig', array('message' => $message));
 });
 
-$app->run();
+$request = \Kotoblog\Request::createFromGlobals();
+$app->run($request);
