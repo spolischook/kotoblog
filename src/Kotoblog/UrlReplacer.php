@@ -16,7 +16,7 @@ class UrlReplacer
         '/php/php-razbit-stroku-na-podstroki-zadannoj-dliny.html/comment-page-1' => '/php/php-razbit-stroku-na-podstroki-zadannoj-dliny.html',
         '/news/resheno-2002-nevozmozhno-podklyuchitsya-k-serveru-mysql.html/comment-page-1' => '/news/resheno-2002-nevozmozhno-podklyuchitsya-k-serveru-mysql.html',
         '/ubuntu/xampp-ubuntu-1010-nastrojka-virtualnyx-xostov.html/comment-page-1' => '/ubuntu/xampp-ubuntu-1010-nastrojka-virtualnyx-xostov.html',
-        '/wp-content/uploads/2010/12/2510945.jpg%5Cu0026size=29.1KB%5Cu0026p=%D0%A1%D0%BC%D0%B5%D1%88%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%BE%D1%82%D1%8B%5Cu0026oid=8a4ca78501c29c79fbfcb1b9502ec23a%5Cu0026ni=21%5Cu0026no=30%5Cu0026tab=organic%5Cu0026sigi=11luvmf7g%5Cu0026sigt=118tkpa55%5Cu0026tt=%D0%AD%D1%82%D0%B8%20%D1%81%D0%BC%D0%B5%D1%88%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%BE%D1%82%D1%8B%20:)%5Cu0026u=fb' => '/',
+        '/wp-content/uploads/2010/12/2510945.jpg' => '/',
     );
 
     static public $urlMap = array(
