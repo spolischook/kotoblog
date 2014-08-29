@@ -17,6 +17,7 @@ class UrlReplacer
         '/news/resheno-2002-nevozmozhno-podklyuchitsya-k-serveru-mysql.html/comment-page-1' => '/news/resheno-2002-nevozmozhno-podklyuchitsya-k-serveru-mysql.html',
         '/ubuntu/xampp-ubuntu-1010-nastrojka-virtualnyx-xostov.html/comment-page-1' => '/ubuntu/xampp-ubuntu-1010-nastrojka-virtualnyx-xostov.html',
         '/wp-content/uploads/2010/12/2510945.jpg' => '/',
+        '/ubuntu/xampp-ubuntu-1010-nastrojka-virtualnyx-xostov.html' => '/news/xampp-ubuntu-1010-nastrojka-virtualnyx-xostov.html'
     );
 
     static public $urlMap = array(
