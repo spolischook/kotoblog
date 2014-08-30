@@ -16,8 +16,12 @@ class UrlReplacer
         '/php/php-razbit-stroku-na-podstroki-zadannoj-dliny.html/comment-page-1' => '/php/php-razbit-stroku-na-podstroki-zadannoj-dliny.html',
         '/news/resheno-2002-nevozmozhno-podklyuchitsya-k-serveru-mysql.html/comment-page-1' => '/news/resheno-2002-nevozmozhno-podklyuchitsya-k-serveru-mysql.html',
         '/ubuntu/xampp-ubuntu-1010-nastrojka-virtualnyx-xostov.html/comment-page-1' => '/ubuntu/xampp-ubuntu-1010-nastrojka-virtualnyx-xostov.html',
-        '/wp-content/uploads/2010/12/2510945.jpg' => '/',
-        '/ubuntu/xampp-ubuntu-1010-nastrojka-virtualnyx-xostov.html' => '/news/xampp-ubuntu-1010-nastrojka-virtualnyx-xostov.html'
+        '/wp-content/uploads/2010/12/2510945.jpg%5Cu0026size=29.1KB%5Cu0026p=%D0%A1%D0%BC%D0%B5%D1%88%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%BE%D1%82%D1%8B%5Cu0026oid=8a4ca78501c29c79fbfcb1b9502ec23a%5Cu0026ni=21%5Cu0026no=30%5Cu0026tab=organic%5Cu0026sigi=11luvmf7g%5Cu0026sigt=118tkpa55%5Cu0026tt=%D0%AD%D1%82%D0%B8%20%D1%81%D0%BC%D0%B5%D1%88%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%BE%D1%82%D1%8B%20:)%5Cu0026u=fb' => '/uploads/2010/12/2510945.jpg',
+        '/ubuntu/xampp-ubuntu-1010-nastrojka-virtualnyx-xostov.html' => '/news/xampp-ubuntu-1010-nastrojka-virtualnyx-xostov.html',
+        '/wordpress/nestandartnye-shrifty-na-sajte-font-html' => '/wordpress/nestandartnye-shrifty-na-sajte-font-html-css.html',
+        '/news/setup-environment-for-symfony2-nastrojka-okruzheniya-dlya-symfony2-na-ubuntu-12-04.html/comment-page-1' => '/news/setup-environment-for-symfony2-nastrojka-okruzheniya-dlya-symfony2-na-ubuntu-12-04.html',
+        '/news/perevodchik-v-google-chrome.html/comment-page-1' => '/news/perevodchik-v-google-chrome.html',
+        '/php/curl-php5-ubuntu-pravilnaya-ustanovka.html/comment-page-1' => '/php/curl-php5-ubuntu-pravilnaya-ustanovka.html',
     );
 
     static public $urlMap = array(
@@ -48,5 +52,14 @@ class UrlReplacer
 //        '/news/doctrinecachebundle-apc.html' => '',
         '/articles/global-nyie-pieriemiennyie-twig-symfony2' => '/php/globalnye-peremennye-twig-symfony2.html',
         '/articles/mongodb-symfony2-travis-ci' => '/news/mongodb-symfony2-travis-ci.html',
+        '/articles/vidieo-youtube-vo-vsplyvaiushchiem-oknie-jce-mediabox-joomla-1-5' => '/joomla/video-youtube-vo-vsplyvayushhem-okne-jce-mediaboxjoomla-15.html',
+        '/articles/probliema-s-ustanovkoi-sqlite-v-ubuntu-10-04' => '/php/problema-s-ustanovkoj-sqlite-v-ubuntu-10-04.html',
+        '/articles/audio-player-dlia-wordpress-2-0b6' => '/wordpress/plaginy/audio-player-dlya-wordpress-20b6.html',
+        '/articles/biezopasnost-parolia-joomla' => '/joomla/bezopasnost-parolya-joomla.html',
+        '/articles/pierievodchik-slovar-v-google-chrome' => '/news/perevodchik-v-google-chrome.html',
+        '/articles/xampp-xdebug-na-ubuntu-10-10' => '/ubuntu/xamppxdebug-na-ubuntu-1010.html',
+        '/articles/eclipse-pdt-ubuntu-10-10-chast-1' => '/ubuntu/eclipse-pdt-ubuntu-1010.html',
+        '/articles/razbor-svoistv-tovara-v-modulie-mnoghourovnievoi-navighatsii-blocklayered-prestashop' => '/prestashop/razbor-svojstv-tovara-v-module-mnogourovnevoj-navigacii-blocklayered-prestashop.html',
+        '/articles/fail-fstab' => '/ubuntu/fajl-fstab.html',
     );
 }
