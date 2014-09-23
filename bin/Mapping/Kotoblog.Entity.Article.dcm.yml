@@ -19,6 +19,7 @@ Kotoblog\Entity\Article:
             gedmo:
                 slug:
                     fields: [title]
+                    updatable: false
         text:
             type: text
         textSource:
