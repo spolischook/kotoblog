@@ -16,6 +16,9 @@ Kotoblog\Entity\Article:
             type: string
         slug:
             type: string
+            gedmo:
+                slug:
+                    fields: [title]
         text:
             type: text
         textSource:

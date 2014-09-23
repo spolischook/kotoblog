@@ -39,7 +39,7 @@
         <div class="col-sm-2 sidebar">
             <ul class="nav nav-sidebar">
                 {% set currentRoute = app.request.attributes.get('_route') %}
-                <li {% if currentRoute == 'adminArticles' %}class="active"{% endif %}><a href="{{ path('adminArticles') }}">Articles</a></li>
+                <li {% if currentRoute == 'adminEditArticles' %}class="active"{% endif %}><a href="{{ path('adminArticles') }}">Articles</a></li>
                 <li {% if currentRoute == 'searchIndexes' %}class="active"{% endif %}><a href="{{ path('searchIndexes') }}">Search Indexes</a></li>
                 <li><a href="#">Comments</a></li>
             </ul>

@@ -1,6 +1,6 @@
 {% extends 'Backend/layoutList.html.twig' %}
 {% block content %}
-    <h1 class="page-header">Articles</h1>
+    <h1 class="page-header">Articles <a type="button" class="btn btn-default" href="{{ path('adminCreateArticle') }}">+ Create New</a></h1>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -17,7 +17,7 @@
                 <tr>
                     <td>{{ article.id }}</td>
                     <td>
-                        <a href="{{ path('adminArticle', {slug: article.slug|default('none')}) }}">
+                        <a href="{{ path('adminEditArticle', {slug: article.slug|default('none')}) }}">
                             {{ article.title }}
                         </a>
                     </td>

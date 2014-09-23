@@ -9,7 +9,7 @@
             </div>
         {% endfor %}
     {% endfor %}
-    <a href="{{ path('showArticle', {'slug': form.vars.value.slug}) }}"  class="btn btn-info pull-right" target="_blank">View Article</a>
+    {#<a href="{{ path('showArticle', {'slug': form.vars.value.slug}) }}"  class="btn btn-info pull-right" target="_blank">View Article</a>#}
     <h1>{{ title }}</h1>
     <form role="form" {{ form_enctype(form) }} method="post" id="article-form">
         <div class="form-group">

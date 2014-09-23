@@ -2,6 +2,7 @@
 
 namespace Kotoblog\Controller;
 
+use Kotoblog\Entity\Article;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
@@ -38,18 +39,31 @@ class BackendController
             $app->abort(404, sprintf('The requested article with slug "%s" was not found.', $slug));
         }
 
+        return $this->processArticle($request, $app, $article);
+    }
+
+    public function createArticleAction(Request $request, Application $app)
+    {
+        return $this->processArticle($request, $app, new Article());
+    }
+
+    protected function processArticle(Request $request, Application $app, Article $article)
+    {
         $form = $app['form.factory']->create($app['form_type.article'], $article);
 
         if ($request->isMethod('POST')) {
             $form->bind($request);
 
             if ($form->isValid()) {
+                if (!$article->getId()) {
+                    $app['orm.em']->persist($article);
+                }
                 $app['orm.em']->flush();
 
                 $message = 'The article "' . $article->getTitle() . '" has been saved.';
                 $app['session']->getFlashBag()->add('success', $message);
 
-                return $app->redirect($app['url_generator']->generate('adminArticle', array('slug' => $article->getSlug())));
+                return $app->redirect($app['url_generator']->generate('adminEditArticle', array('slug' => $article->getSlug())));
             }
         }
 

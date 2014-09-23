@@ -28,8 +28,11 @@ $app->get('/admin', 'Kotoblog\Controller\BackendController::indexAction')
     ->bind('adminIndex');
 $app->get('/admin/articles', 'Kotoblog\Controller\BackendController::articlesAction')
     ->bind('adminArticles');
+$app->match('/admin/articles/new', 'Kotoblog\Controller\BackendController::createArticleAction')
+    ->bind('adminCreateArticle')
+    ->method('GET|POST');
 $app->match('/admin/articles/{slug}', 'Kotoblog\Controller\BackendController::editArticleAction')
-    ->bind('adminArticle')
+    ->bind('adminEditArticle')
     ->method('GET|POST');
 $app->match('/admin/search-indexes', 'Kotoblog\Controller\BackendController::searchIndexesAction')
     ->bind('searchIndexes')
