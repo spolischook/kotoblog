@@ -2,6 +2,7 @@
 
 namespace Kotoblog\Controller;
 
+use Kotoblog\CacheInterface;
 use Kotoblog\Entity\Article;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,6 +60,8 @@ class BackendController
                     $app['orm.em']->persist($article);
                 }
                 $app['orm.em']->flush();
+                $app['cache']->setNamespace(CacheInterface::ARTICLE_NAMESPACE);
+                $app['cache']->deleteAll();
 
                 $message = 'The article "' . $article->getTitle() . '" has been saved.';
                 $app['session']->getFlashBag()->add('success', $message);
