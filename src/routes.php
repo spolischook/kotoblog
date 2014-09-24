@@ -19,6 +19,9 @@ $app->get('/sidebar/articles/', 'Kotoblog\Controller\SidebarController::getArtic
 $app->get('/sidebar/tags/', 'Kotoblog\Controller\SidebarController::getTagsAction')
     ->bind('sidebarTags');
 
+$app->get('/example/{exampleNumber}', 'Kotoblog\Controller\IndexController::exampleAction')
+    ->bind('example');
+
 $app->match('/login', 'Kotoblog\Controller\UserController::loginAction')
     ->bind('login');
 $app->get('/logout', 'Kotoblog\Controller\UserController::logoutAction')

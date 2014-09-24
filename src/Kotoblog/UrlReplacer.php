@@ -180,5 +180,7 @@ class UrlReplacer
         '/articles/koshka-protiv-printiera' => '/video/koshka-protiv-printera.html',
         '/articles/kot-i-mukha' => '/video/kot-i-muxa.html',
         '/articles/dielaiem-obrabatyvaiem-skrinshoty-v-gimp' => '/news/delaem-obrabatyvaem-skrinshoty-v-gimp.html',
+        '/example/1' => '/example/1.html',
+        '/example/2' => '/example/2.html',
     );
 }
