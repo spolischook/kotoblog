@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+{% block maincolumn %}
+    <h2>Articles</h2>
+    <ul>
+        {% for article in articles %}
+            <li><a href="{{ path('showArticle', {'slug': article.slug}) }}">{{ article.title }}</a></li>
+        {% endfor %}
+    </ul>
+    <h2>Tags</h2>
+    <ul>
+        {% for tag in tags %}
+            <li><a href="{{ path('showTag', {'slug': tag.slug}) }}" >{{ tag.title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

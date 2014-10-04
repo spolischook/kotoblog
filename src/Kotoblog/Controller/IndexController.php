@@ -15,6 +15,17 @@ class IndexController
         return $app['twig']->render('index.html.twig');
     }
 
+    public function sitemapAction(Application $app)
+    {
+        $articles = $app['orm.em']->getRepository('Kotoblog\Entity\Article')->findAll();
+        $tags     = $app['orm.em']->getRepository('Kotoblog\Entity\Tag')->findAll();
+
+        return $app['twig']->render('sitemap.html.twig', [
+            'articles' => $articles,
+            'tags'     => $tags,
+        ]);
+    }
+
     public function aboutMeAction(Request $request, Application $app)
     {
         return $app['twig']->render('about-me.html.twig');

@@ -60,6 +60,7 @@ class UrlReplacer
         '/tag/php/page/3' => '/tags/php',
         '/tag/php/page/4' => '/tags/php',
         '/tag/linux' => 'tags/linux',
+        '/tag/tags/tags/linux' => 'tags/linux',
         '/tag/tags/linux' => 'tags/linux',
         '/tag/curl' => '/',
         '/tag/eclipse' => '/',
@@ -98,6 +99,10 @@ class UrlReplacer
         '/category/news/page/4' => '/',
         '/category/news/page/5' => '/',
         '/news/load-doctrine-fixtures-from-controller.html/feed' => '/news/load-doctrine-fixtures-from-controller.html',
+        '/dizajn/besshovnyj-fon-v-gimp.html/comment-page-1' => '/dizajn/besshovnyj-fon-v-gimp.html',
+        '/foto/smeshnye-foto.html/comment-page-1' => '/foto/smeshnye-foto.html',
+        '/php/shablon-vyvoda-spiska-tovarov-kategorii-prestashop.html/comment-page-1' => '/php/shablon-vyvoda-spiska-tovarov-kategorii-prestashop.html',
+        '/karta-sajta' => '/sitemap',
     );
 
     static public $urlMap = array(

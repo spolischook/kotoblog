@@ -11,6 +11,9 @@ $app->get('/articles', 'Kotoblog\Controller\ArticleController::articlesAction')
 $app->get('/articles/{slug}', 'Kotoblog\Controller\ArticleController::articleAction')
     ->bind('showArticle');
 
+$app->get('/sitemap', 'Kotoblog\Controller\IndexController::sitemapAction')
+    ->bind('sitemap');
+
 $app->get('/tags/{slug}', 'Kotoblog\Controller\TagController::tagAction')
     ->bind('showTag');
 
