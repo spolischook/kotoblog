@@ -17,13 +17,21 @@ class IndexController
 
     public function sitemapAction(Application $app)
     {
+        if (true == $app['cache']->contains('sitemap')) {
+            return $app['cache']->fetch('sitemap');
+        }
+
         $articles = $app['orm.em']->getRepository('Kotoblog\Entity\Article')->findAll();
         $tags     = $app['orm.em']->getRepository('Kotoblog\Entity\Tag')->findAll();
 
-        return $app['twig']->render('sitemap.html.twig', [
+        $response = $app['twig']->render('sitemap.html.twig', [
             'articles' => $articles,
             'tags'     => $tags,
         ]);
+
+        $app['cache']->save('sitemap', $response, 86400);
+
+        return $response;
     }
 
     public function aboutMeAction(Request $request, Application $app)
