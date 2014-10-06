@@ -93,6 +93,7 @@ class UrlReplacer
         '/tag/usability/' => '/',
         '/tag/usability/page/2' => '/',
         '/tag/joomla/page/2' => '/tags/joomla',
+        '/tag/xoroshee-nastroenie' => '/',
         '/category/news/page/1' => '/',
         '/category/news/page/2' => '/',
         '/category/news/page/3' => '/',
@@ -103,6 +104,7 @@ class UrlReplacer
         '/foto/smeshnye-foto.html/comment-page-1' => '/foto/smeshnye-foto.html',
         '/php/shablon-vyvoda-spiska-tovarov-kategorii-prestashop.html/comment-page-1' => '/php/shablon-vyvoda-spiska-tovarov-kategorii-prestashop.html',
         '/karta-sajta' => '/sitemap',
+        '/news/eclipse-pdt-ubuntu-1010-chast-2.html' => '/php/eclipse-pdt-ubuntu-1010-chast-2.html',
     );
 
     static public $urlMap = array(
