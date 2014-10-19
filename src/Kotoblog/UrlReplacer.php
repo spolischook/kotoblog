@@ -52,6 +52,7 @@ class UrlReplacer
         '/tag/ubuntu' => '/tags/ubuntu',
         '/tag/ubuntu/page/2' => '/tags/ubuntu',
         '/tag/ubuntu/page/3' => '/tags/ubuntu',
+        '/tag/ubuntu/page/4' => 'tags/ubuntu',
         '/tag/joomla' => '/tags/joomla',
         '/tag/symfony2' => '/tags/symfony2',
         '/tag/php' => '/tags/php',
@@ -105,6 +106,11 @@ class UrlReplacer
         '/php/shablon-vyvoda-spiska-tovarov-kategorii-prestashop.html/comment-page-1' => '/php/shablon-vyvoda-spiska-tovarov-kategorii-prestashop.html',
         '/karta-sajta' => '/sitemap',
         '/news/eclipse-pdt-ubuntu-1010-chast-2.html' => '/php/eclipse-pdt-ubuntu-1010-chast-2.html',
+        '/joomla/bezopasnost-parolya-joomla.html/comment-page-1' => '/joomla/bezopasnost-parolya-joomla.html',
+        '/wordpress/plaginy/oblako-tegov-culumus.html/comment-page-1' => '/wordpress/plaginy/oblako-tegov-culumus.html',
+        '/news/phpunit-ubuntu-12-04.html/comment-page-1' => 'news/phpunit-ubuntu-12-04.html',
+        '/joomla/prava-na-papki-joomla-avtomaticheski.html/comment-page-1' => '/joomla/prava-na-papki-joomla-avtomaticheski.html',
+        '/ubuntu/d-link-domashnij-server-na-apache.html/comment-page-1' => '/ubuntu/d-link-domashnij-server-na-apache.html',
     );
 
     static public $urlMap = array(
