@@ -114,11 +114,12 @@ class UrlReplacer
         '/news/phpunit-ubuntu-12-04.html/comment-page-1' => 'news/phpunit-ubuntu-12-04.html',
         '/joomla/prava-na-papki-joomla-avtomaticheski.html/comment-page-1' => '/joomla/prava-na-papki-joomla-avtomaticheski.html',
         '/ubuntu/d-link-domashnij-server-na-apache.html/comment-page-1' => '/ubuntu/d-link-domashnij-server-na-apache.html',
+        '/news/get-metadata-for-class-annotation-yml-xml-and-other-in-symfony2-app-with-doctrine.html/feed' => '/news/get-metadata-for-class-annotation-yml-xml-and-other-in-symfony2-app-with-doctrine.html',
+        '/news/work-with-doctrine-annotation-reader.html/feed' => '/news/work-with-doctrine-annotation-reader.html',
     );
 
     static public $urlMap = array(
         '/articles/work-with-doctrine-annotation-reader' => '/news/work-with-doctrine-annotation-reader.html',
-        '/news/work-with-doctrine-annotation-reader.html/feed' => '/news/work-with-doctrine-annotation-reader.html',
         '/articles/eti-smieshnyie-koty' => '/foto/eti-smeshnye-koty.html',
         '/articles/curl-php5-ubuntu-pravil-naia-ustanovka' => '/php/curl-php5-ubuntu-pravilnaya-ustanovka.html',
         '/articles/denwer-i-kodirovka-utf-8' => '/php/denwer-i-kodirovka-utf-8.html',
@@ -165,7 +166,6 @@ class UrlReplacer
         '/articles/audioplieier-na-sait-na-javascript' => '/news/audiopleer-na-sajt-na-javascript.html',
         '/articles/biezopasnost-saita-ili-zashchishchaiemsia-antivirusom-na-vsie-sluchai-zhizni' => '/instrumenty/bezopasnost-sajta-ili-zashhishhaemsya-antivirusom.html',
         '/articles/get-metadata-for-class-annotation-yml-xml-and-other-in-symfony2-app-with-doctrine' => '/news/get-metadata-for-class-annotation-yml-xml-and-other-in-symfony2-app-with-doctrine.html',
-        'news/get-metadata-for-class-annotation-yml-xml-and-other-in-symfony2-app-with-doctrine.html/feed' => '/news/get-metadata-for-class-annotation-yml-xml-and-other-in-symfony2-app-with-doctrine.html',
         '/articles/seo-virtuemart-2-x-i-joomla-2-5-ili-kak-izbavitsia-ot-components-virtuemart-v-url' => '/news/seo-virtuemart-2-x-i-joomla-2-5-ili-kak-izbavitsya-ot-componentsvirtuemart-v-url.html',
         '/articles/composer-no-matching-package-found' => '/php/composer-no-matching-package-found.html',
         '/articles/1c-7-7-na-ubuntu-10-10' => '/ubuntu/1c-77-na-ubuntu-1010.html',
