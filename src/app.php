@@ -94,8 +94,8 @@ $app->before(function (\Kotoblog\Request $request) use ($app) {
 
 
 $app->register(new \Kotoblog\Provider\GitHubApiProvider(), [
-    'github.username' => 'spolischook',
-    'github.password' => 'dctktyyfz1985',
+    'github.username' => $app['github.username'],
+    'github.password' => $app['github.password'],
 ]);
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(

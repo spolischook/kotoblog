@@ -50,3 +50,5 @@ $app['cache.options'] = array("default" => array(
 ));
 
 $app['kotoblog.host'] = 'http://kotoblog.pp.ua';
+$app['github.username'] = $config['github']['username'];
+$app['github.password'] = $config['github']['password'];
