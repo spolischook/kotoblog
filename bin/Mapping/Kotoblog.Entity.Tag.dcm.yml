@@ -16,6 +16,10 @@ Kotoblog\Entity\Tag:
             type: string
         slug:
             type: string
+            gedmo:
+                slug:
+                    fields: [title]
+                    updatable: false
         weight:
             type: integer
             nullable: true
