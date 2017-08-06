@@ -64,7 +64,7 @@ $app->register(new Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider
 ));
 
 $app->register(new \CHH\Silex\CacheServiceProvider);
-$app['session.storage.handler'] = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\MemcacheSessionHandler($app['cache']->getMemcache());
+$app['session.storage.handler'] = new \Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeSessionHandler();
 
 $app['article.subscriber'] = $app->share(function ($app) {
     return new \Kotoblog\Event\ArticleSubscriber($app['cache_updater']);

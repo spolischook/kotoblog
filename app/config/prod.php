@@ -39,13 +39,14 @@ foreach ($config['disqus'] as $property => $value) {
 
 $app['cache.options'] = array("default" => array(
     "driver" => function() {
-        $cache = new \Doctrine\Common\Cache\MemcacheCache();
-        $memcache = new \Memcache;
-        $memcache->pconnect('unix:///home/silkck/.system/memcache/socket', 0);
-
-        $cache->setMemcache($memcache);
-
-        return $cache;
+        return new \Doctrine\Common\Cache\ArrayCache();
+//        $cache = new \Doctrine\Common\Cache\MemcacheCache();
+//        $memcache = new \Memcache;
+//        $memcache->pconnect('unix:///home/silkck/.system/memcache/socket', 0);
+//
+//        $cache->setMemcache($memcache);
+//
+//        return $cache;
     }
 ));
 
